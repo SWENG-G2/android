@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".MainContentSheet"
+    android:padding="@dimen/bottom_sheet_inner_layout_padding">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/welcome_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="test"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/bottom_sheet_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/welcome_tv">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/ducksTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ducks_tab_text"/>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/aboutTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_tab_text"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/bottom_sheet_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/bottom_sheet_tab_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

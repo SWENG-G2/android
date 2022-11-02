@@ -13,4 +13,20 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.CampusBirdsGuide.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Theme.CampusBirdsGuide.BottomSheet</item>
+    </style>
+
+    <style name="Theme.CampusBirdsGuide.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/Theme.CampusBirdsGuide.BottomSheetShapeOverlay
+        </item>
+    </style>
+
+    <style name="Theme.CampusBirdsGuide.BottomSheetShapeOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_radius</item>
+        <item name="backgroundColor">@color/bottom_sheet_bg_light</item>
+    </style>
 </resources>

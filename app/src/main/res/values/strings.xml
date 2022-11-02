@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Campus Birds Guide</string>
+    <string name="ducks_tab_text">Ducks</string>
+    <string name="about_tab_text">About</string>
 </resources>
