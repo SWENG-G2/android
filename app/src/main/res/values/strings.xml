@@ -2,4 +2,7 @@
     <string name="app_name">Campus Birds Guide</string>
     <string name="home_title">Home</string>
     <string name="action_about">About the app</string>
+
+    <!-- Ducks list -->
+    <string name="ducks_list_content_description">%s image</string>
 </resources>
