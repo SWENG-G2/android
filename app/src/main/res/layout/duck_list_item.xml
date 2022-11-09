@@ -3,23 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/duck_list_item_padding">
+    android:padding="@dimen/duck_list_item_padding"
+    android:background="@drawable/duck_list_item_bg"
+    android:layout_marginHorizontal="@dimen/duck_list_item_h_margin"
+    android:layout_marginBottom="@dimen/item_vertical_spacing">
 
     <ImageView
         android:id="@+id/duck_image"
-        android:layout_width="@dimen/duck_image_size"
-        android:layout_height="@dimen/duck_image_size"
+        android:layout_width="@dimen/duck_list_item_image_size"
+        android:layout_height="@dimen/duck_list_item_image_size"
         android:contentDescription="@string/ducks_list_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/duck_list_item_image_bg"/>
 
     <TextView
         android:id="@+id/duck_name"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="@dimen/duck_list_item_text_margin_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/duck_image"
         app:layout_constraintTop_toTopOf="parent" />

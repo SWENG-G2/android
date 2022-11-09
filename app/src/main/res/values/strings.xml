@@ -5,4 +5,5 @@
 
     <!-- Ducks list -->
     <string name="ducks_list_content_description">%s image</string>
+    <string name="load_duck_content_description">Load duck information from local storage</string>
 </resources>
