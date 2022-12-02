@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final Long NO_CAMPUS_SELECTED = -1L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,17 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Create ducks list adapter
-        DuckListRecyclerViewAdapter duckListRecyclerViewAdapter = new DuckListRecyclerViewAdapter(generateDummyDucksList());
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
+        Long campusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
 
-        RecyclerView ducksList = findViewById(R.id.recycler_view);
-        ducksList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        ducksList.setAdapter(duckListRecyclerViewAdapter);
+        if (!campusId.equals(NO_CAMPUS_SELECTED)) {
+            // Create ducks list adapter
+            DuckListRecyclerViewAdapter duckListRecyclerViewAdapter = new DuckListRecyclerViewAdapter(generateDummyDucksList());
+
+            RecyclerView ducksList = findViewById(R.id.recycler_view);
+            ducksList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            ducksList.setAdapter(duckListRecyclerViewAdapter);
+        }
     }
 
     @Override
@@ -55,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+            Intent chooseLocationIntent = new Intent(this, CampusSelectionActivity.class);
+            startActivity(chooseLocationIntent);
         } else { // Other possibility can only be the about button
             Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
         }
