@@ -8,6 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.android.volley.VolleyError;
+
+import sweng.campusbirdsguide.utils.RequestMaker;
+import sweng.campusbirdsguide.utils.Result;
+
 public class CampusSelectionActivity extends AppCompatActivity {
 
     @Override
@@ -25,6 +30,21 @@ public class CampusSelectionActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        RequestMaker requestMaker = new RequestMaker(getApplicationContext());
+
+        String campusListUrl = getString(R.string.serverURL) + getString(R.string.campusesList);
+        requestMaker.query(campusListUrl, new Result() {
+            @Override
+            public void onSuccess(String string) {
+                System.out.println(string);
+            }
+
+            @Override
+            public void onError(VolleyError volleyError) {
+                System.out.println(volleyError.getMessage());
+            }
+        });
     }
 
     @Override
