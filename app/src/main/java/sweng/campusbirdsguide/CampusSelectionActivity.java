@@ -10,10 +10,38 @@ import android.view.MenuItem;
 
 import com.android.volley.VolleyError;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import sweng.campusbirdsguide.utils.RequestMaker;
 import sweng.campusbirdsguide.utils.Result;
+import sweng.campusbirdsguide.xml.CampusEntry;
+import sweng.campusbirdsguide.xml.PresentationElement;
+import sweng.campusbirdsguide.xml.PresentationParser;
+import sweng.campusbirdsguide.xml.Slide;
 
 public class CampusSelectionActivity extends AppCompatActivity {
+
+    private void populateList(String xml) {
+        PresentationParser parser = new PresentationParser();
+
+        try {
+            List<Slide> slides = parser.parse(xml);
+            for (Slide slide : slides) {
+                System.out.println("Slide " + slide.getTitle() + " content:");
+                ArrayList<PresentationElement> elements = slide.getElements();
+                for (PresentationElement element : elements) {
+                    System.out.println(element);
+                }
+            }
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +65,7 @@ public class CampusSelectionActivity extends AppCompatActivity {
         requestMaker.query(campusListUrl, new Result() {
             @Override
             public void onSuccess(String string) {
-                System.out.println(string);
+                populateList(string);
             }
 
             @Override
