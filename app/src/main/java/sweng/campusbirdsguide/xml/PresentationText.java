@@ -1,5 +1,10 @@
 package sweng.campusbirdsguide.xml;
 
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
 import androidx.annotation.NonNull;
 
 import lombok.Setter;
@@ -16,15 +21,22 @@ public class PresentationText implements PresentationElement {
 
     public PresentationText(String font, int fontSize, int x, int y, int color) {
         this.font = font;
-        this.fontSize = fontSize;
+        this.fontSize = (int) (fontSize * Resources.getSystem().getDisplayMetrics().scaledDensity);
         this.x = x;
         this.y = y;
         this.color = color;
     }
 
     @Override
-    public void draw() {
+    public void draw(Canvas canvas) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(fontSize);
 
+        float yPos = canvas.getHeight() - y;
+
+        canvas.drawText(content, x, yPos, paint);
     }
 
     @NonNull

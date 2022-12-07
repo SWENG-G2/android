@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,12 +16,11 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.utils.RequestMaker;
 import sweng.campusbirdsguide.utils.Result;
-import sweng.campusbirdsguide.xml.CampusEntry;
 import sweng.campusbirdsguide.xml.PresentationElement;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.Slide;
@@ -31,6 +32,11 @@ public class CampusSelectionActivity extends AppCompatActivity {
 
         try {
             List<Slide> slides = parser.parse(xml);
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides);
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(slidesRecyclerViewAdapter);
+
             for (Slide slide : slides) {
                 System.out.println("Slide " + slide.getTitle() + " content:");
                 ArrayList<PresentationElement> elements = slide.getElements();
@@ -52,7 +58,7 @@ public class CampusSelectionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Hide default title and use change location icon as home
+        // Hide default title and display back arrow
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
