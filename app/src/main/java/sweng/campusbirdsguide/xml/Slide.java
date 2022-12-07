@@ -3,6 +3,7 @@ package sweng.campusbirdsguide.xml;
 import java.util.ArrayList;
 
 import lombok.Getter;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
 @Getter
 public class Slide {

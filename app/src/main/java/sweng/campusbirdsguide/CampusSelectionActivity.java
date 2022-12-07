@@ -21,7 +21,7 @@ import java.util.List;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.utils.RequestMaker;
 import sweng.campusbirdsguide.utils.Result;
-import sweng.campusbirdsguide.xml.PresentationElement;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.Slide;
 

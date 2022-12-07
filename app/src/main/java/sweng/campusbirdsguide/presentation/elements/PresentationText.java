@@ -1,13 +1,15 @@
-package sweng.campusbirdsguide.xml;
+package sweng.campusbirdsguide.presentation.elements;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
 
 import lombok.Setter;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.xml.Slide;
 
 public class PresentationText implements PresentationElement {
     private final String font;
@@ -28,15 +30,21 @@ public class PresentationText implements PresentationElement {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Slide slide) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(color);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(fontSize);
 
-        float yPos = canvas.getHeight() - y;
+        Rect textBounds = new Rect();
+        paint.getTextBounds(content, 0, content.length(), textBounds);
 
-        canvas.drawText(content, x, yPos, paint);
+        float xPos = (x * canvas.getWidth()) / (float) slide.getWidth();
+        float yPos = (y * canvas.getHeight()) / (float) slide.getHeight();
+
+        yPos += textBounds.height();
+
+        canvas.drawText(content, xPos, yPos, paint);
     }
 
     @NonNull

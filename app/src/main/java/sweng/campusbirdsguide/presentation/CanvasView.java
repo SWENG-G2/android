@@ -1,19 +1,15 @@
 package sweng.campusbirdsguide.presentation;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
 import lombok.Setter;
-import sweng.campusbirdsguide.xml.PresentationElement;
 import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
 public class CanvasView extends View {
 
@@ -42,7 +38,7 @@ public class CanvasView extends View {
         if (slide != null) {
 
             for (PresentationElement element : slide.getElements()) {
-                element.draw(canvas);
+                element.draw(canvas, slide);
                 System.out.println("Drawn " + element);
             }
         }
