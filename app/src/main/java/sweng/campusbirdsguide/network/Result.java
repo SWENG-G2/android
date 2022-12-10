@@ -1,4 +1,4 @@
-package sweng.campusbirdsguide.utils;
+package sweng.campusbirdsguide.network;
 
 import com.android.volley.VolleyError;
 

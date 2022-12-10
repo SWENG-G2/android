@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import sweng.campusbirdsguide.xml.Slide;
 
 
-public class PresentationLine implements PresentationElement {
+public class LineElement implements PresentationElement {
     private final int thickness;
     private final int fromX;
     private final int fromY;
@@ -17,7 +17,7 @@ public class PresentationLine implements PresentationElement {
     private final int toY;
     private final int colour;
 
-    public PresentationLine(int thickness, int fromX, int fromY, int toX, int toY, int colour) {
+    public LineElement(int thickness, int fromX, int fromY, int toX, int toY, int colour) {
         this.thickness = (int) (thickness * Resources.getSystem().getDisplayMetrics().scaledDensity);
         this.fromX = fromX;
         this.fromY = fromY;

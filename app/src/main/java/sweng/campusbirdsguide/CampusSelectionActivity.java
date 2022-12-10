@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
-import sweng.campusbirdsguide.utils.RequestMaker;
-import sweng.campusbirdsguide.utils.Result;
+import sweng.campusbirdsguide.network.RequestMaker;
+import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.Slide;

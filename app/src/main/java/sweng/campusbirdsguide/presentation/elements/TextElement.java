@@ -8,10 +8,9 @@ import android.graphics.Rect;
 import androidx.annotation.NonNull;
 
 import lombok.Setter;
-import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.Slide;
 
-public class PresentationText implements PresentationElement {
+public class TextElement implements PresentationElement {
     private final String font;
     private final int fontSize;
     private final int x;
@@ -21,7 +20,7 @@ public class PresentationText implements PresentationElement {
     @Setter
     private String content;
 
-    public PresentationText(String font, int fontSize, int x, int y, int color) {
+    public TextElement(String font, int fontSize, int x, int y, int color) {
         this.font = font;
         this.fontSize = (int) (fontSize * Resources.getSystem().getDisplayMetrics().scaledDensity);
         this.x = x;
