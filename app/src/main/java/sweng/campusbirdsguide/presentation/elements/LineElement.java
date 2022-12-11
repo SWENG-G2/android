@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import sweng.campusbirdsguide.xml.Slide;
 
 
-public class LineElement implements PresentationElement {
+public class LineElement extends PresentationElement {
     private final int thickness;
     private final int fromX;
     private final int fromY;
@@ -24,10 +24,14 @@ public class LineElement implements PresentationElement {
         this.toX = toX;
         this.toY = toY;
         this.colour = colour;
+
+        isShape = true;
     }
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
+        super.draw(canvas, slide);
+
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(colour);
         paint.setStrokeWidth(thickness);

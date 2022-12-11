@@ -7,6 +7,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
+import lombok.Getter;
 import lombok.Setter;
 import sweng.campusbirdsguide.xml.Slide;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
@@ -15,6 +18,8 @@ public class CanvasView extends View {
 
     @Setter
     private Slide slide = null;
+    @Setter
+    private List<PresentationElement> shapes = null;
 
     public CanvasView(Context context) {
         super(context);
@@ -35,11 +40,10 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (slide != null) {
+        if (slide != null && shapes != null) {
 
-            for (PresentationElement element : slide.getElements()) {
+            for (PresentationElement element : shapes) {
                 element.draw(canvas, slide);
-                System.out.println("Drawn " + element);
             }
         }
     }

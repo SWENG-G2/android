@@ -1,16 +1,22 @@
 package sweng.campusbirdsguide.presentation.elements;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import lombok.Setter;
 import sweng.campusbirdsguide.xml.Slide;
 
-public class TextElement implements PresentationElement {
+public class TextElement extends PresentationElement {
     private final String font;
     private final int fontSize;
     private final int x;
@@ -22,28 +28,34 @@ public class TextElement implements PresentationElement {
 
     public TextElement(String font, int fontSize, int x, int y, int color) {
         this.font = font;
-        this.fontSize = (int) (fontSize * Resources.getSystem().getDisplayMetrics().scaledDensity);
+        this.fontSize = fontSize;
         this.x = x;
         this.y = y;
         this.color = color;
+
+        isShape = false;
     }
 
     @Override
-    public void draw(Canvas canvas, Slide slide) {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(color);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(fontSize);
+    public void addToLayout(View view, Slide slide, ConstraintLayout constraintLayout) {
+        super.addToLayout(view, slide, constraintLayout);
 
-        Rect textBounds = new Rect();
-        paint.getTextBounds(content, 0, content.length(), textBounds);
+        TextView textView = new TextView(view.getContext());
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-        float xPos = (x * canvas.getWidth()) / (float) slide.getWidth();
-        float yPos = (y * canvas.getHeight()) / (float) slide.getHeight();
+        // TODO: View size is 0 here. Calculate this stuff in advance?
+        float xPos = (x * view.getWidth()) / (float) slide.getWidth();
+        float yPos = (y * view.getHeight()) / (float) slide.getHeight();
 
-        yPos += textBounds.height();
+        layoutParams.leftMargin = Math.round(xPos);
+        layoutParams.topMargin = Math.round(yPos);
 
-        canvas.drawText(content, xPos, yPos, paint);
+        textView.setText(content);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        textView.setTextColor(color);
+        textView.setLayoutParams(layoutParams);
+
+        constraintLayout.addView(textView);
     }
 
     @NonNull
