@@ -1,13 +1,7 @@
 package sweng.campusbirdsguide.presentation.elements;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,16 +31,17 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public void addToLayout(View view, Slide slide, ConstraintLayout constraintLayout) {
-        super.addToLayout(view, slide, constraintLayout);
+    public View getView(View parent, Slide slide) {
+        super.getView(parent, slide);
 
-        TextView textView = new TextView(view.getContext());
+        TextView textView = new TextView(parent.getContext());
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-        // TODO: View size is 0 here. Calculate this stuff in advance?
-        float xPos = (x * view.getWidth()) / (float) slide.getWidth();
-        float yPos = (y * view.getHeight()) / (float) slide.getHeight();
+        float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
+        float yPos = (y * slide.getCalculatedHeight()) / (float) slide.getHeight();
 
+        layoutParams.topToTop = parent.getId();
+        layoutParams.startToStart = parent.getId();
         layoutParams.leftMargin = Math.round(xPos);
         layoutParams.topMargin = Math.round(yPos);
 
@@ -55,7 +50,7 @@ public class TextElement extends PresentationElement {
         textView.setTextColor(color);
         textView.setLayoutParams(layoutParams);
 
-        constraintLayout.addView(textView);
+        return textView;
     }
 
     @NonNull

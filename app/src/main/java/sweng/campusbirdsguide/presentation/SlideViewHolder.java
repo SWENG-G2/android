@@ -1,7 +1,5 @@
 package sweng.campusbirdsguide.presentation;
 
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,25 +27,16 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void draw(Slide slide) {
-        // TODO: Move all this scaling business somewhere else. Can't be good to retrieve screen size for each slide.
-        // Get screen width
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        // This is sort of a guess to adjust slide height based on font size and screen density
-        float densityScaling = displayMetrics.scaledDensity / displayMetrics.density;
-        int width = displayMetrics.widthPixels;
-        int height = Math.round(((width * slide.getHeight() * densityScaling) / ((float) slide.getWidth())));
-
-
         ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-        layoutParams.width = width;
-        layoutParams.height = height;
+        layoutParams.width = slide.getCalculatedWidth();
+        layoutParams.height = slide.getCalculatedHeight();
 
         itemView.setLayoutParams(layoutParams);
 
         ArrayList<PresentationElement> shapes = new ArrayList<>();
         for(PresentationElement element : slide.getElements()) {
             if (element.isShape()) shapes.add(element);
-            else element.addToLayout(itemView, slide, constraintLayout);
+            else constraintLayout.addView(element.getView(itemView, slide));
         }
 
         canvas.setSlide(slide);

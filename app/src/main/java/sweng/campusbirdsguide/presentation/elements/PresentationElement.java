@@ -17,7 +17,7 @@ public abstract class PresentationElement {
         // No-OP by default
     }
 
-    public void addToLayout(View view, Slide slide, ConstraintLayout constraintLayout) {
-        // No-OP by default
+    public View getView(View parent, Slide slide) {
+        return null;
     }
 }
