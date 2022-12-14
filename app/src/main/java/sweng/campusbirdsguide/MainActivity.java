@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +24,10 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final Long NO_CAMPUS_SELECTED = -1L;
+    private static final long NO_CAMPUS_SELECTED = -1L;
+
+    private long campusId;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +46,25 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
-        Long campusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
+        sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
+        campusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
 
-        if (!campusId.equals(NO_CAMPUS_SELECTED)) {
-            // Create ducks list adapter
-            DuckListRecyclerViewAdapter duckListRecyclerViewAdapter = new DuckListRecyclerViewAdapter(generateDummyDucksList());
+        if (campusId != NO_CAMPUS_SELECTED) {
+            // Remove Select location tv
+            findViewById(R.id.select_location_tv).setVisibility(TextView.GONE);
+            // TODO: Fetch ducks
+        }
+    }
 
-            RecyclerView ducksList = findViewById(R.id.recycler_view);
-            ducksList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            ducksList.setAdapter(duckListRecyclerViewAdapter);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long newCampusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
+        System.out.println(newCampusId);
+        if (newCampusId != campusId) {
+            // Remove Select location tv
+            findViewById(R.id.select_location_tv).setVisibility(TextView.GONE);
+            // TODO: Re-fetch ducks
         }
     }
 

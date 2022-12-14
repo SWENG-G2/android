@@ -19,7 +19,6 @@ public abstract class ElementParser {
         String originalColour = xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR);
         // TODO: Document magic numbers
         String formattedColour = "#" + originalColour.substring(7) + originalColour.substring(1, 7);
-        System.out.println(formattedColour + " " + Color.parseColor(formattedColour));
         return Color.parseColor(formattedColour);
     }
 }

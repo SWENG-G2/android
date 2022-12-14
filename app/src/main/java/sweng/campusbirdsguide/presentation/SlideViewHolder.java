@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,10 +18,15 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
     private final CanvasView canvas;
     private final View itemView;
     private final ConstraintLayout constraintLayout;
-    public SlideViewHolder(@NonNull View itemView) {
+
+    public SlideViewHolder(@NonNull View itemView, ListItemClickListener listItemClickListener) {
         super(itemView);
 
         this.itemView = itemView;
+
+        if (listItemClickListener != null) {
+            itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getAdapterPosition()));
+        }
 
         canvas = itemView.findViewById(R.id.canvas);
         constraintLayout = itemView.findViewById(R.id.slide);

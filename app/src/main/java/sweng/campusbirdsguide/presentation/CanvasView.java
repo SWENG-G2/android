@@ -9,10 +9,9 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import lombok.Getter;
 import lombok.Setter;
-import sweng.campusbirdsguide.xml.Slide;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.xml.Slide;
 
 public class CanvasView extends View {
 

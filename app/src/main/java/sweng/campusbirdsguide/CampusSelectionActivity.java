@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sweng.campusbirdsguide.presentation.ListItemClickListener;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
@@ -26,24 +29,23 @@ import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.Slide;
 
 public class CampusSelectionActivity extends AppCompatActivity {
-
+    private SharedPreferences sharedPreferences;
     private void populateList(String xml) {
         PresentationParser parser = new PresentationParser();
 
         try {
             List<Slide> slides = parser.parse(xml);
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides);
+
+            ListItemClickListener listItemClickListener = position -> {
+                long campusId = Long.parseLong(slides.get(position).getTitle());
+                sharedPreferences.edit().putLong(getString(R.string.campusId), campusId).apply();
+                finish();
+            };
+
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener);
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);
-
-            for (Slide slide : slides) {
-                System.out.println("Slide " + slide.getTitle() + " content:");
-                ArrayList<PresentationElement> elements = slide.getElements();
-                for (PresentationElement element : elements) {
-                    System.out.println(element);
-                }
-            }
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
@@ -53,6 +55,8 @@ public class CampusSelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_campus_selection);
+
+        sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
 
         // Set app bar
         Toolbar toolbar = findViewById(R.id.toolbar);
