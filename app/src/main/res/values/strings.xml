@@ -4,6 +4,7 @@
     <string name="campusId" translatable="false">campusId</string>
     <string name="serverURL" translatable="false">http://192.168.0.87:8080/</string>
     <string name="campusesList" translatable="false">campus/list</string>
+    <string name="birdsList" translatable="false">campus/%d</string>
 
     <!-- Main activity -->
     <string name="app_name">Campus Birds Guide</string>

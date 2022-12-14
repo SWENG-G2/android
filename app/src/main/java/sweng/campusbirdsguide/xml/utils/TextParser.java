@@ -14,7 +14,7 @@ public class TextParser extends ElementParser {
         int fontSize = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FONT_SIZE));
         String font = xmlPullParser.getAttributeValue(NAME_SPACE, FONT_NAME);
 
-        int colour = getColour(xmlPullParser);
+        int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));
 
         return new TextElement(font, fontSize, xCoordinate, yCoordinate, colour);
     }

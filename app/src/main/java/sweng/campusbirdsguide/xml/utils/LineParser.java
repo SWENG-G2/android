@@ -17,7 +17,7 @@ public class LineParser extends ElementParser {
         int fromY = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FROM_Y));
         int toX = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_X));
         int toY = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_Y));
-        int colour = getColour(xmlPullParser);
+        int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));
 
         return new LineElement(thickness, fromX, fromY, toX, toY, colour);
     }

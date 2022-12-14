@@ -46,6 +46,9 @@ public class CampusSelectionActivity extends AppCompatActivity {
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);
+
+            // Prevents views from being "written on top of". Perhaps not the best way to do this
+            recyclerView.setItemViewCacheSize(slides.size());
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }

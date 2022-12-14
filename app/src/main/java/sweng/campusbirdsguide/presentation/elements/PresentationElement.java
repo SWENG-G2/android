@@ -8,7 +8,7 @@ import sweng.campusbirdsguide.xml.Slide;
 
 public abstract class PresentationElement {
     @Getter
-    protected boolean isShape;
+    protected boolean isShape = false;
 
     public void draw(Canvas canvas, Slide slide) {
         // No-OP by default

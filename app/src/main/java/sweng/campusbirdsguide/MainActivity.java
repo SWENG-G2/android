@@ -1,13 +1,5 @@
 package sweng.campusbirdsguide;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +7,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.VolleyError;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import sweng.campusbirdsguide.network.RequestMaker;
+import sweng.campusbirdsguide.network.Result;
+import sweng.campusbirdsguide.presentation.ListItemClickListener;
+import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
+import sweng.campusbirdsguide.xml.PresentationParser;
+import sweng.campusbirdsguide.xml.Slide;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +40,43 @@ public class MainActivity extends AppCompatActivity {
 
     private long campusId;
     private SharedPreferences sharedPreferences;
+
+    private void populateList(String xml) {
+        PresentationParser parser = new PresentationParser();
+
+        try {
+            List<Slide> slides = parser.parse(xml);
+
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null);
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(slidesRecyclerViewAdapter);
+
+            // Prevents views from being "written on top of". Perhaps not the best way to do this
+            recyclerView.setItemViewCacheSize(slides.size());
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fetchBirds() {
+        RequestMaker requestMaker = new RequestMaker(getApplicationContext());
+
+        String birdsUrl = getString(R.string.serverURL) + String.format(Locale.UK, getString(R.string.birdsList), campusId);
+        requestMaker.query(birdsUrl, new Result() {
+            @Override
+            public void onSuccess(String string) {
+                populateList(string);
+                // Hide progress loading spinner
+                findViewById(R.id.loading).setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(VolleyError volleyError) {
+                System.out.println(volleyError.getMessage());
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +99,25 @@ public class MainActivity extends AppCompatActivity {
         campusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
 
         if (campusId != NO_CAMPUS_SELECTED) {
-            // Remove Select location tv
-            findViewById(R.id.select_location_tv).setVisibility(TextView.GONE);
-            // TODO: Fetch ducks
+            // Show loading spinner
+            findViewById(R.id.loading).setVisibility(View.VISIBLE);
+            fetchBirds();
         }
+        // Show select location hint
+        else findViewById(R.id.select_location_tv).setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         long newCampusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
-        System.out.println(newCampusId);
         if (newCampusId != campusId) {
-            // Remove Select location tv
-            findViewById(R.id.select_location_tv).setVisibility(TextView.GONE);
-            // TODO: Re-fetch ducks
+            campusId = newCampusId;
+            // Hide select location hint
+            findViewById(R.id.select_location_tv).setVisibility(View.GONE);
+            // Show loading spinner
+            findViewById(R.id.loading).setVisibility(View.VISIBLE);
+            fetchBirds();
         }
     }
 

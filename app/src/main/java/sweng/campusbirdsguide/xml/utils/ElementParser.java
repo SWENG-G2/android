@@ -15,10 +15,9 @@ public abstract class ElementParser {
     protected static final String COLOUR = "colour";
 
 
-    protected static int getColour(XmlPullParser xmlPullParser) {
-        String originalColour = xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR);
+    protected static int parseColour(String colour) {
         // TODO: Document magic numbers
-        String formattedColour = "#" + originalColour.substring(7) + originalColour.substring(1, 7);
+        String formattedColour = "#" + colour.substring(7) + colour.substring(1, 7);
         return Color.parseColor(formattedColour);
     }
 }

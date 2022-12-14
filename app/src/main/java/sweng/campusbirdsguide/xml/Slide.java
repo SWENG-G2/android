@@ -19,7 +19,6 @@ public class Slide {
     public Slide(int width, int height, String title) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
-
         this.height = height;
         this.width = width;
         this.calculatedWidth = displayMetrics.widthPixels;

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sweng.campusbirdsguide.presentation.elements.TextElement;
+import sweng.campusbirdsguide.xml.utils.ImageParser;
 import sweng.campusbirdsguide.xml.utils.LineParser;
+import sweng.campusbirdsguide.xml.utils.RectangleParser;
 import sweng.campusbirdsguide.xml.utils.TextParser;
 
 
@@ -24,6 +26,8 @@ public class PresentationParser {
     private static final String TEXT = "text";
     private static final String LINE = "line";
     private static final String TITLE = "title";
+    private static final String RECTANGLE = "rectangle";
+    private static final String IMAGE = "image";
 
 
     private List<Slide> parsePresentation(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException {
@@ -58,6 +62,14 @@ public class PresentationParser {
                         case LINE:
                             if (workingSlide != null)
                                 workingSlide.addElement(LineParser.parseLine(xmlPullParser));
+                            break;
+                        case RECTANGLE:
+                            if (workingSlide != null)
+                                workingSlide.addElement(RectangleParser.parseRectangle(xmlPullParser));
+                            break;
+                        case IMAGE:
+                            if (workingSlide != null)
+                                workingSlide.addElement(ImageParser.parseImage(xmlPullParser));
                             break;
                         default:
                             break;
