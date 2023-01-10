@@ -12,11 +12,11 @@ public class LineParser extends ElementParser {
     private static final String THICKNESS = "thickness";
 
     public static LineElement parseLine(XmlPullParser xmlPullParser) {
-        int thickness = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, THICKNESS));
-        int fromX = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FROM_X));
-        int fromY = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FROM_Y));
-        int toX = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_X));
-        int toY = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_Y));
+        int thickness = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, THICKNESS));
+        int fromX = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FROM_X));
+        int fromY = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FROM_Y));
+        int toX = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_X));
+        int toY = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, TO_Y));
         int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));
 
         return new LineElement(thickness, fromX, fromY, toX, toY, colour);

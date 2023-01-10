@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.TypedValue;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -33,8 +34,6 @@ public class RectangleElement extends PresentationElement {
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
-        super.draw(canvas, slide);
-
         int left = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int right = Math.round(left + (width * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int top = Math.round((y * slide.getCalculatedHeight()) / (float) slide.getHeight());
@@ -53,6 +52,11 @@ public class RectangleElement extends PresentationElement {
         paint.setStyle(Paint.Style.FILL);
 
         canvas.drawRect(rectangle, paint);
+    }
+
+    @Override
+    public View getView(View parent, Slide slide) {
+        return null;
     }
 
     @NonNull

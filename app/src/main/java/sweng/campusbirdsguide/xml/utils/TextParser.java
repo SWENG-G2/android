@@ -9,9 +9,9 @@ public class TextParser extends ElementParser {
     private static final String FONT_NAME = "fontName";
 
     public static TextElement parseText(XmlPullParser xmlPullParser) {
-        int xCoordinate = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, X_COORDINATE));
-        int yCoordinate = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, Y_COORDINATE));
-        int fontSize = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FONT_SIZE));
+        int xCoordinate = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, X_COORDINATE));
+        int yCoordinate = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, Y_COORDINATE));
+        int fontSize = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FONT_SIZE));
         String font = xmlPullParser.getAttributeValue(NAME_SPACE, FONT_NAME);
 
         int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));

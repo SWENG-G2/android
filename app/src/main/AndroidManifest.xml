@@ -16,6 +16,13 @@
         android:theme="@style/Theme.CampusBirdsGuide"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".BirdActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!-- Clear text traffic should go away in prod -->
         <activity
             android:name=".CampusSelectionActivity"

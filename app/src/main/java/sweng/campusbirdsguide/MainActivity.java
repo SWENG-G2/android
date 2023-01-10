@@ -47,7 +47,15 @@ public class MainActivity extends AppCompatActivity {
         try {
             List<Slide> slides = parser.parse(xml);
 
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null);
+            ListItemClickListener listItemClickListener = position -> {
+                long birdId = Long.parseLong(slides.get(position).getTitle());
+
+                Intent birdIntent = new Intent(this, BirdActivity.class);
+                birdIntent.putExtra("birdId", birdId);
+                startActivity(birdIntent);
+            };
+
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener);
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);

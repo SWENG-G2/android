@@ -10,11 +10,7 @@ public abstract class PresentationElement {
     @Getter
     protected boolean isShape = false;
 
-    public void draw(Canvas canvas, Slide slide) {
-        // No-OP by default
-    }
+    abstract public void draw(Canvas canvas, Slide slide);
 
-    public View getView(View parent, Slide slide) {
-        return null;
-    }
+    abstract public View getView(View parent, Slide slide);
 }

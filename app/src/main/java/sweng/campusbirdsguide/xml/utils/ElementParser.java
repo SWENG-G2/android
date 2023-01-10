@@ -2,8 +2,6 @@ package sweng.campusbirdsguide.xml.utils;
 
 import android.graphics.Color;
 
-import org.xmlpull.v1.XmlPullParser;
-
 public abstract class ElementParser {
     protected static final String NAME_SPACE = null;
 
@@ -16,8 +14,19 @@ public abstract class ElementParser {
 
 
     protected static int parseColour(String colour) {
+        System.out.println(colour);
         // TODO: Document magic numbers
-        String formattedColour = "#" + colour.substring(7) + colour.substring(1, 7);
-        return Color.parseColor(formattedColour);
+        if (colour != null && colour.length() == 9) {
+            String formattedColour = "#" + colour.substring(7) + colour.substring(1, 7);
+            return Color.parseColor(formattedColour);
+        } return Color.TRANSPARENT;
+    }
+
+    protected static int parseInt(String stringValue) {
+        try {
+            return Integer.parseInt(stringValue);
+        } catch (NumberFormatException numberFormatException) {
+            return 0;
+        }
     }
 }

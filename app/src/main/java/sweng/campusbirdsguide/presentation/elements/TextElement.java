@@ -1,5 +1,6 @@
 package sweng.campusbirdsguide.presentation.elements;
 
+import android.graphics.Canvas;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -31,9 +32,10 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
-        super.getView(parent, slide);
+    public void draw(Canvas canvas, Slide slide) {}
 
+    @Override
+    public View getView(View parent, Slide slide) {
         TextView textView = new TextView(parent.getContext());
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 

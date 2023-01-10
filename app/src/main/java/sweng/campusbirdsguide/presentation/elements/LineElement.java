@@ -3,6 +3,7 @@ package sweng.campusbirdsguide.presentation.elements;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -30,8 +31,6 @@ public class LineElement extends PresentationElement {
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
-        super.draw(canvas, slide);
-
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(colour);
         paint.setStrokeWidth(thickness);
@@ -42,6 +41,11 @@ public class LineElement extends PresentationElement {
         float endY = (toY * canvas.getHeight()) / (float) slide.getHeight();
 
         canvas.drawLine(startX, startY, endX, endY, paint);
+    }
+
+    @Override
+    public View getView(View parent, Slide slide) {
+        return null;
     }
 
     @NonNull

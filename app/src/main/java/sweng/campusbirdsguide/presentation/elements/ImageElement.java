@@ -2,6 +2,7 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,9 +29,10 @@ public class ImageElement extends PresentationElement {
     private final int y;
 
     @Override
-    public View getView(View parent, Slide slide) {
-        super.getView(parent, slide);
+    public void draw(Canvas canvas, Slide slide) {}
 
+    @Override
+    public View getView(View parent, Slide slide) {
         ImageView imageView = new ImageView(parent.getContext());
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
