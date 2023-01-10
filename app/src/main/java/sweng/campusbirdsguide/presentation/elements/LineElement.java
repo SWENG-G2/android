@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 
 public class LineElement extends PresentationElement {

@@ -12,4 +12,6 @@
     <dimen name="searchbar_stroke">3dp</dimen>
     <!-- General -->
     <dimen name="item_vertical_spacing">15dp</dimen>
+    <!-- Slide -->
+    <dimen name="slide_border">2.5dp</dimen>
 </resources>

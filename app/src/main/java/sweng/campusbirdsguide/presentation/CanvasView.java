@@ -11,7 +11,7 @@ import java.util.List;
 
 import lombok.Setter;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class CanvasView extends View {
 

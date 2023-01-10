@@ -22,7 +22,7 @@ import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.xml.PresentationParser;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class BirdActivity extends AppCompatActivity {
 
@@ -30,9 +30,9 @@ public class BirdActivity extends AppCompatActivity {
         PresentationParser presentationParser = new PresentationParser();
 
         try {
-            List<Slide> slides = presentationParser.parse(xml);
+            List<Slide> slides = presentationParser.parse(xml, "detail");
 
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null);
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null, 0);
 
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

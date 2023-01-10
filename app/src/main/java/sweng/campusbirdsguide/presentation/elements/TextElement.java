@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import lombok.Setter;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class TextElement extends PresentationElement {
     private final String font;
@@ -37,7 +37,8 @@ public class TextElement extends PresentationElement {
     @Override
     public View getView(View parent, Slide slide) {
         TextView textView = new TextView(parent.getContext());
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        // Match parent to allow text to wrap
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
         float yPos = (y * slide.getCalculatedHeight()) / (float) slide.getHeight();

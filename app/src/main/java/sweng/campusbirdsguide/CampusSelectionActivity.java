@@ -26,7 +26,7 @@ import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.PresentationParser;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class CampusSelectionActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -34,7 +34,7 @@ public class CampusSelectionActivity extends AppCompatActivity {
         PresentationParser parser = new PresentationParser();
 
         try {
-            List<Slide> slides = parser.parse(xml);
+            List<Slide> slides = parser.parse(xml, "basic");
 
             ListItemClickListener listItemClickListener = position -> {
                 long campusId = Long.parseLong(slides.get(position).getTitle());
@@ -42,7 +42,7 @@ public class CampusSelectionActivity extends AppCompatActivity {
                 finish();
             };
 
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener);
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener, 0);
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);

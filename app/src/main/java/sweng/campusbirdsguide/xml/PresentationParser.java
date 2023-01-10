@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sweng.campusbirdsguide.presentation.elements.TextElement;
+import sweng.campusbirdsguide.xml.slide.SlideFactory;
 import sweng.campusbirdsguide.xml.utils.ImageParser;
 import sweng.campusbirdsguide.xml.utils.LineParser;
 import sweng.campusbirdsguide.xml.utils.RectangleParser;
 import sweng.campusbirdsguide.xml.utils.TextParser;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 
 public class PresentationParser {
@@ -30,7 +32,7 @@ public class PresentationParser {
     private static final String IMAGE = "image";
 
 
-    private List<Slide> parsePresentation(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException {
+    private List<Slide> parsePresentation(XmlPullParser xmlPullParser, String slideType) throws XmlPullParserException, IOException {
         List<Slide> slides = new ArrayList<>();
 
         Slide workingSlide = null;
@@ -49,7 +51,7 @@ public class PresentationParser {
                             int width = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, WIDTH));
                             int height = Integer.parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, HEIGHT));
 
-                            workingSlide = new Slide(width, height, title);
+                            workingSlide = SlideFactory.createSlide(slideType, width, height, title);
                             break;
                         }
                         case TEXT: {
@@ -103,13 +105,13 @@ public class PresentationParser {
         return slides;
     }
 
-    public List<Slide> parse(String input) throws XmlPullParserException, IOException {
+    public List<Slide> parse(String input, String slideType) throws XmlPullParserException, IOException {
         XmlPullParser xmlPullParser = Xml.newPullParser();
         xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
         xmlPullParser.setInput(new StringReader(input));
         xmlPullParser.nextTag();
 
 
-        return parsePresentation(xmlPullParser);
+        return parsePresentation(xmlPullParser, slideType);
     }
 }

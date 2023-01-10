@@ -18,7 +18,7 @@ import java.net.URL;
 
 import lombok.AllArgsConstructor;
 import sweng.campusbirdsguide.R;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 @AllArgsConstructor
 public class ImageElement extends PresentationElement {

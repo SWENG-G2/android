@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.view.View;
 
 import lombok.Getter;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public abstract class PresentationElement {
     @Getter

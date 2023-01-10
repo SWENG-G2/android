@@ -32,7 +32,7 @@ import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.ListItemClickListener;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.xml.PresentationParser;
-import sweng.campusbirdsguide.xml.Slide;
+import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         PresentationParser parser = new PresentationParser();
 
         try {
-            List<Slide> slides = parser.parse(xml);
+            List<Slide> slides = parser.parse(xml, "bird");
 
             ListItemClickListener listItemClickListener = position -> {
                 long birdId = Long.parseLong(slides.get(position).getTitle());
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(birdIntent);
             };
 
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener);
+            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener, 5);
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);
