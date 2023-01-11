@@ -1,14 +1,17 @@
 package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 
 import lombok.Setter;
+import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class TextElement extends PresentationElement {
@@ -32,7 +35,8 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public void draw(Canvas canvas, Slide slide) {}
+    public void draw(Canvas canvas, Slide slide) {
+    }
 
     @Override
     public View getView(View parent, Slide slide) {
@@ -52,6 +56,11 @@ public class TextElement extends PresentationElement {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView.setTextColor(color);
         textView.setLayoutParams(layoutParams);
+
+        if (font.equals("mono")) {
+            Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
+            textView.setTypeface(typeface);
+        }
 
         return textView;
     }
