@@ -39,7 +39,11 @@ public class ImageElement extends PresentationElement {
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int yPos = Math.round((y * slide.getCalculatedHeight()) / (float) slide.getHeight());
         int calculatedWidth = Math.round((width * slide.getCalculatedWidth()) / (float) slide.getWidth());
-        int calculatedHeight = Math.round((height * slide.getCalculatedHeight()) / (float) slide.getHeight());
+        int calculatedHeight;
+        if (height == -1)
+            calculatedHeight = calculatedWidth;
+        else
+            calculatedHeight = Math.round((height * slide.getCalculatedHeight()) / (float) slide.getHeight());
 
         layoutParams.topToTop = parent.getId();
         layoutParams.startToStart = parent.getId();
