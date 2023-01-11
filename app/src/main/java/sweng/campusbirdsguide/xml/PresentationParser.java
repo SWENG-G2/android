@@ -12,6 +12,7 @@ import java.util.List;
 
 import sweng.campusbirdsguide.presentation.elements.TextElement;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
+import sweng.campusbirdsguide.xml.utils.AudioParser;
 import sweng.campusbirdsguide.xml.utils.CircleParser;
 import sweng.campusbirdsguide.xml.utils.ImageParser;
 import sweng.campusbirdsguide.xml.utils.LineParser;
@@ -32,6 +33,7 @@ public class PresentationParser {
     private static final String RECTANGLE = "rectangle";
     private static final String IMAGE = "image";
     private static final String CIRCLE = "circle";
+    private static final String AUDIO = "audio";
 
 
     private List<Slide> parsePresentation(XmlPullParser xmlPullParser, String slideType) throws XmlPullParserException, IOException {
@@ -78,6 +80,10 @@ public class PresentationParser {
                         case CIRCLE:
                             if (workingSlide != null)
                                 workingSlide.addElement(CircleParser.parseCircle(xmlPullParser));
+                            break;
+                        case AUDIO:
+                            if (workingSlide != null)
+                                workingSlide.addElement(AudioParser.parseAudio(xmlPullParser));
                             break;
                         default:
                             break;
