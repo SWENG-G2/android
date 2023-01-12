@@ -1,27 +1,26 @@
-package sweng.campusbirdsguide.presentation;
+package sweng.campusbirdsguide.presentation.rv;
 
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import sweng.campusbirdsguide.R;
+import sweng.campusbirdsguide.presentation.CanvasView;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class SlideViewHolder extends RecyclerView.ViewHolder {
+public class SlideRVViewHolder extends RecyclerView.ViewHolder {
     private final CanvasView canvas;
     private final View itemView;
     private final ConstraintLayout constraintLayout;
     private final int horizontalMargin;
 
-    public SlideViewHolder(@NonNull View itemView, ListItemClickListener listItemClickListener, int horizontalMargin) {
+    public SlideRVViewHolder(@NonNull View itemView, ListItemClickListener listItemClickListener, int horizontalMargin) {
         super(itemView);
 
         this.itemView = itemView;
@@ -46,7 +45,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         ArrayList<PresentationElement> shapes = new ArrayList<>();
         for (PresentationElement element : slide.getElements()) {
             if (element.isShape()) shapes.add(element);
-            else constraintLayout.addView(element.getView(itemView, slide));
+            else constraintLayout.addView(element.getView(constraintLayout, slide));
         }
 
         canvas.setSlide(slide);

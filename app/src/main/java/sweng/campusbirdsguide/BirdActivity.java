@@ -4,23 +4,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
-import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
+import sweng.campusbirdsguide.presentation.CanvasView;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.presentation.elv.SlideELVAdapter;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
@@ -32,14 +37,43 @@ public class BirdActivity extends AppCompatActivity {
         try {
             List<Slide> slides = presentationParser.parse(xml, "detail");
 
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null, 0);
+            for(Slide slide : slides) {
+                if (slide.getTitle().equals("heroSlide")) {
+                    LinearLayout heroView = findViewById(R.id.hero_slide);
 
-            RecyclerView recyclerView = findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerView.setAdapter(slidesRecyclerViewAdapter);
+                    ViewGroup.LayoutParams heroLayoutParams = heroView.getLayoutParams();
+                    heroLayoutParams.width = slide.getCalculatedWidth();
+                    heroLayoutParams.height = slide.getCalculatedHeight();
 
-            // Prevents views from being "written on top of". Perhaps not the best way to do this
-            recyclerView.setItemViewCacheSize(slides.size());
+                    heroView.setLayoutParams(heroLayoutParams);
+
+                    ConstraintLayout constraintLayout = heroView.findViewById(R.id.slide);
+                    CanvasView canvas = heroView.findViewById(R.id.canvas);
+
+                    ArrayList<PresentationElement> shapes = new ArrayList<>();
+                    for (PresentationElement element : slide.getElements()) {
+                        if (element.isShape()) shapes.add(element);
+                        else constraintLayout.addView(element.getView(constraintLayout, slide));
+                    }
+
+                    canvas.setSlide(slide);
+                    canvas.setShapes(shapes);
+                    canvas.invalidate();
+                }
+            }
+
+            ExpandableListView expandableListView = findViewById(R.id.expandable_list_view);
+            SlideELVAdapter slideELVAdapter = new SlideELVAdapter(slides, getApplicationContext());
+            expandableListView.setAdapter(slideELVAdapter);
+
+//            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, null, 0);
+//
+//            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//            recyclerView.setAdapter(slidesRecyclerViewAdapter);
+//
+//            // Prevents views from being "written on top of". Perhaps not the best way to do this
+//            recyclerView.setItemViewCacheSize(slides.size());
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
             return false;

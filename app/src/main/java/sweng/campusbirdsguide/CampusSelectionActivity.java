@@ -17,14 +17,12 @@ import com.android.volley.VolleyError;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import sweng.campusbirdsguide.presentation.ListItemClickListener;
-import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
+import sweng.campusbirdsguide.presentation.rv.ListItemClickListener;
+import sweng.campusbirdsguide.presentation.rv.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
-import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.slide.Slide;
 

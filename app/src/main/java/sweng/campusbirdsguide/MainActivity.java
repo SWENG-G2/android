@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +28,8 @@ import java.util.Locale;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
-import sweng.campusbirdsguide.presentation.ListItemClickListener;
-import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
+import sweng.campusbirdsguide.presentation.rv.ListItemClickListener;
+import sweng.campusbirdsguide.presentation.rv.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.slide.Slide;
 

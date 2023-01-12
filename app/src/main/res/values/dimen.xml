@@ -14,4 +14,6 @@
     <dimen name="item_vertical_spacing">15dp</dimen>
     <!-- Slide -->
     <dimen name="slide_border">2.5dp</dimen>
+    <dimen name="expandable_h_margin">10dp</dimen>
+    <dimen name="expandable_padding">15dp</dimen>
 </resources>
