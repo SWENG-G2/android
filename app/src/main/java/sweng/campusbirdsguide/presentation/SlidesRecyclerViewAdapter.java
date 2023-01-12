@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -28,7 +27,11 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
     @NonNull
     @Override
     public SlideViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slide, parent, false);
+        View view;
+        if (viewType == Slide.STANDARD_TYPE)
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slide, parent, false);
+        else
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expandable_slide, parent, false);
 
         return new SlideViewHolder(view, listItemClickListener, horizontalMargin);
     }
@@ -41,5 +44,10 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
     @Override
     public int getItemCount() {
         return slides.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return slides.get(position).getType();
     }
 }

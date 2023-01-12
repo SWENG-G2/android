@@ -36,12 +36,36 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void draw(Slide slide) {
-        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
-        layoutParams.width = slide.getCalculatedWidth();
-        layoutParams.height = slide.getCalculatedHeight();
-        layoutParams.setMarginStart(horizontalMargin);
+        int slideType = slide.getType();
+        int calculatedHeight = slide.getCalculatedHeight();
+        if (slideType == Slide.STANDARD_TYPE) {
+            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            layoutParams.width = slide.getCalculatedWidth();
+            if (calculatedHeight > 0)
+                layoutParams.height = calculatedHeight;
+            else
+                layoutParams.height = RecyclerView.LayoutParams.WRAP_CONTENT;
+            layoutParams.setMarginStart(horizontalMargin);
 
-        itemView.setLayoutParams(layoutParams);
+            itemView.setLayoutParams(layoutParams);
+        } else {
+            ViewGroup.LayoutParams layoutParams = constraintLayout.getLayoutParams();
+            layoutParams.width = slide.getCalculatedWidth();
+            if (calculatedHeight > 0)
+                layoutParams.height = calculatedHeight;
+            else
+                layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+
+            constraintLayout.setLayoutParams(layoutParams);
+
+            // We need to set the container's margin even if there were none set.
+            // In this list a standard slide coexists with details slides.
+            // The standard slide doesn't need margin
+            RecyclerView.LayoutParams containerLayoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int mHorizontalMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Slide.HORIZONTAL_MARGIN / 2f, itemView.getContext().getResources().getDisplayMetrics()));
+            containerLayoutParams.setMarginStart(mHorizontalMargin);
+            containerLayoutParams.setMarginEnd(mHorizontalMargin);
+        }
 
         ArrayList<PresentationElement> shapes = new ArrayList<>();
         for (PresentationElement element : slide.getElements()) {

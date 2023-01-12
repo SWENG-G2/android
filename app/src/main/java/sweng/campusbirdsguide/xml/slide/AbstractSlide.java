@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
 public abstract class AbstractSlide implements Slide {
-    protected int width, height, calculatedWidth, calculatedHeight;
+    protected int width, height, calculatedWidth, calculatedHeight, type;
     private final String title;
     private final ArrayList<PresentationElement> elements;
     protected final DisplayMetrics displayMetrics;
@@ -23,6 +23,7 @@ public abstract class AbstractSlide implements Slide {
         // Assume height in SP, since slides need to contain text
         this.calculatedHeight = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, height, displayMetrics));
         this.title = title;
+        this.type = STANDARD_TYPE;
 
         this.elements = new ArrayList<>();
     }
@@ -60,5 +61,10 @@ public abstract class AbstractSlide implements Slide {
     @Override
     public void addElement(PresentationElement presentationElement) {
         elements.add(presentationElement);
+    }
+
+    @Override
+    public int getType() {
+        return type;
     }
 }

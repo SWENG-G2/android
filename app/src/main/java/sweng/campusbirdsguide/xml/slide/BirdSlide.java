@@ -13,7 +13,7 @@ public class BirdSlide extends AbstractSlide {
         super(width, height, title);
 
         // Recalculate width to account for horizontal margin
-        this.calculatedWidth = Math.round(this.calculatedWidth - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, HORIZONTAL_PADDING, this.displayMetrics));
+        this.calculatedWidth = Math.round(this.calculatedWidth - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, HORIZONTAL_MARGIN, this.displayMetrics));
     }
 
     @Override

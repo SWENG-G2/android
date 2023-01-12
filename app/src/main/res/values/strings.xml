@@ -18,4 +18,7 @@
 
     <!-- Campus selection activity -->
     <string name="campus_selection_title">Select a campus</string>
+
+    <!-- Bird detail -->
+    <string name="expand_section">Expand section</string>
 </resources>

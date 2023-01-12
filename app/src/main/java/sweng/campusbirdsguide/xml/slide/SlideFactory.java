@@ -8,6 +8,10 @@ public class SlideFactory {
             default:
             case "basic":
                 return new BasicSlide(width, height, title);
+            case "detail":
+                if (title.equals("heroSlide"))
+                    return new BasicSlide(width, height, title);
+                return new DetailSlide(width, height, title);
         }
     }
 }
