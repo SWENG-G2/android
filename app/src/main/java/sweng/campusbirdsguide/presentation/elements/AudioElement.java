@@ -23,6 +23,8 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
 
     private MediaPlayer mediaPlayer;
 
+    private static final int DP_SIZE = 100;
+
     public AudioElement(String url, boolean loop, int x, int y) {
         this.url = url;
         this.loop = loop;
@@ -48,11 +50,17 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         button.setBackground(icon);
 
         layoutParams.topToTop = parent.getId();
-        layoutParams.startToStart = parent.getId();
-        layoutParams.leftMargin = Math.round(xPos);
+        if (x == -3)
+            layoutParams.endToEnd = parent.getId();
+        else {
+            layoutParams.startToStart = parent.getId();
+            layoutParams.leftMargin = Math.round(xPos);
+        }
         layoutParams.topMargin = Math.round(yPos);
+
         if (icon != null) {
-            int size = slide.getCalculatedWidth() / 5;
+            int size = dpToPx(DP_SIZE);
+
             layoutParams.width = size;
             layoutParams.height = size;
         }
