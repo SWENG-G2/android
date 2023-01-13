@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import lombok.Setter;
@@ -62,18 +61,5 @@ public class TextElement extends PresentationElement {
         }
 
         return textView;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "PresentationText{" +
-                "font='" + font + '\'' +
-                ", fontSize=" + fontSize +
-                ", x=" + x +
-                ", y=" + y +
-                ", color=" + color +
-                ", content='" + content + '\'' +
-                '}';
     }
 }
