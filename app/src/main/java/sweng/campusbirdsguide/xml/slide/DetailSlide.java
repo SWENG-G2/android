@@ -4,7 +4,9 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,7 +15,7 @@ import androidx.core.content.ContextCompat;
 import sweng.campusbirdsguide.R;
 
 public class DetailSlide extends AbstractSlide implements View.OnClickListener {
-    private ConstraintLayout slide;
+    private RelativeLayout slide;
     private ImageView chevron;
     private int chevronRotation = 0;
 

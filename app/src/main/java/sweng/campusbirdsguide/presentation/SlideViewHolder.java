@@ -2,11 +2,10 @@ package sweng.campusbirdsguide.presentation;
 
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import sweng.campusbirdsguide.xml.slide.Slide;
 public class SlideViewHolder extends RecyclerView.ViewHolder {
     private final CanvasView canvas;
     private final View itemView;
-    private final ConstraintLayout constraintLayout;
+    private final RelativeLayout relativeLayout;
     private final int horizontalMargin;
 
     public SlideViewHolder(@NonNull View itemView, ListItemClickListener listItemClickListener, int horizontalMargin) {
@@ -31,7 +30,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         }
 
         canvas = itemView.findViewById(R.id.canvas);
-        constraintLayout = itemView.findViewById(R.id.slide);
+        relativeLayout = itemView.findViewById(R.id.slide);
         this.horizontalMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, horizontalMargin, itemView.getContext().getResources().getDisplayMetrics()));
     }
 
@@ -49,14 +48,14 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
             itemView.setLayoutParams(layoutParams);
         } else {
-            ViewGroup.LayoutParams layoutParams = constraintLayout.getLayoutParams();
+            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) relativeLayout.getLayoutParams();
             layoutParams.width = slide.getCalculatedWidth();
             if (calculatedHeight > 0)
                 layoutParams.height = calculatedHeight;
             else
                 layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
 
-            constraintLayout.setLayoutParams(layoutParams);
+            relativeLayout.setLayoutParams(layoutParams);
 
             // We need to set the container's margin even if there were none set.
             // In this list a standard slide coexists with details slides.
@@ -70,9 +69,11 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         ArrayList<PresentationElement> shapes = new ArrayList<>();
         for (PresentationElement element : slide.getElements()) {
             if (element.isShape()) shapes.add(element);
-            else constraintLayout.addView(element.getView(itemView, slide));
+            else relativeLayout.addView(element.getView(itemView, slide));
         }
 
+        relativeLayout.requestLayout();
+        relativeLayout.invalidate();
         canvas.setSlide(slide);
         canvas.setShapes(shapes);
 

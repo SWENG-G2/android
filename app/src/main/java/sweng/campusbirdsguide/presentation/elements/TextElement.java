@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,13 +43,11 @@ public class TextElement extends PresentationElement {
     public View getView(View parent, Slide slide) {
         TextView textView = new TextView(parent.getContext());
         // Match parent to allow text to wrap
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
         float yPos = dpToPx(y);
 
-        layoutParams.topToTop = parent.getId();
-        layoutParams.startToStart = parent.getId();
         layoutParams.leftMargin = Math.round(xPos);
         layoutParams.topMargin = Math.round(yPos);
 

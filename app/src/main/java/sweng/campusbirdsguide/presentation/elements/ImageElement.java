@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -37,7 +38,7 @@ public class ImageElement extends PresentationElement {
     @Override
     public View getView(View parent, Slide slide) {
         ImageView imageView = new ImageView(parent.getContext());
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int yPos = dpToPx(y);
@@ -48,12 +49,10 @@ public class ImageElement extends PresentationElement {
         else
             calculatedHeight = dpToPx(height);
 
-        layoutParams.topToTop = parent.getId();
-        layoutParams.startToStart = parent.getId();
         if (x > 0)
             layoutParams.leftMargin = xPos;
         else if (x == -2) { // Server asked for center in parent
-            layoutParams.endToEnd = parent.getId();
+            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         }
         layoutParams.topMargin = yPos;
         layoutParams.width = calculatedWidth;

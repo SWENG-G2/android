@@ -6,6 +6,7 @@ import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -41,7 +42,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
     @Override
     public View getView(View parent, Slide slide) {
         ImageButton button = new ImageButton(parent.getContext());
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
         float yPos = dpToPx(y);
@@ -49,11 +50,9 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         Drawable icon = ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_bird);
         button.setBackground(icon);
 
-        layoutParams.topToTop = parent.getId();
         if (x == -3)
-            layoutParams.endToEnd = parent.getId();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         else {
-            layoutParams.startToStart = parent.getId();
             layoutParams.leftMargin = Math.round(xPos);
         }
         layoutParams.topMargin = Math.round(yPos);
