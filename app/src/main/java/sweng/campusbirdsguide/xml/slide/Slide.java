@@ -15,11 +15,17 @@ public interface Slide {
 
     // Getters
     int getWidth();
+
     int getHeight();
+
     int getCalculatedWidth();
+
     int getCalculatedHeight();
+
     int getType();
+
     String getTitle();
+
     List<PresentationElement> getElements();
 
     // Adder

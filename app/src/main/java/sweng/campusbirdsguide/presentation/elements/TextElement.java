@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import lombok.Setter;
@@ -17,18 +16,15 @@ import sweng.campusbirdsguide.xml.slide.Slide;
 public class TextElement extends PresentationElement {
     private final String font;
     private final int fontSize;
-    private final int x;
-    private final int y;
     private final int color;
 
     @Setter
     private String content;
 
-    public TextElement(String font, int fontSize, int x, int y, int color) {
+    public TextElement(String font, int fontSize, int color, int x, int y) {
+        super(x, y);
         this.font = font;
         this.fontSize = fontSize;
-        this.x = x;
-        this.y = y;
         this.color = color;
 
         isShape = false;

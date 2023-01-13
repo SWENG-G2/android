@@ -16,6 +16,6 @@ public class TextParser extends ElementParser {
 
         int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));
 
-        return new TextElement(font, fontSize, xCoordinate, yCoordinate, colour);
+        return new TextElement(font, fontSize, colour, xCoordinate, yCoordinate);
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sweng.campusbirdsguide.presentation.elements.TextElement;
+import sweng.campusbirdsguide.xml.slide.Slide;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
 import sweng.campusbirdsguide.xml.utils.AudioParser;
 import sweng.campusbirdsguide.xml.utils.CircleParser;
@@ -18,14 +19,16 @@ import sweng.campusbirdsguide.xml.utils.ImageParser;
 import sweng.campusbirdsguide.xml.utils.LineParser;
 import sweng.campusbirdsguide.xml.utils.RectangleParser;
 import sweng.campusbirdsguide.xml.utils.TextParser;
-import sweng.campusbirdsguide.xml.slide.Slide;
 import sweng.campusbirdsguide.xml.utils.VideoParser;
 
 
 public class PresentationParser {
     private static final String NAME_SPACE = null;
+
+    // Attributes
     private static final String WIDTH = "width";
     private static final String HEIGHT = "height";
+    // Tags
     private static final String PRESENTATION = "presentation";
     private static final String SLIDE = "slide";
     private static final String TEXT = "text";

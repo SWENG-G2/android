@@ -1,11 +1,8 @@
 package sweng.campusbirdsguide.presentation.elements;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
-
-import androidx.annotation.NonNull;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
@@ -19,7 +16,10 @@ public class LineElement extends PresentationElement {
     private final int colour;
 
     public LineElement(int thickness, int fromX, int fromY, int toX, int toY, int colour) {
-        this.thickness = (int) (thickness * Resources.getSystem().getDisplayMetrics().scaledDensity);
+        // Line doesn't have x and y
+        super(0, 0);
+
+        this.thickness = dpToPx(thickness);
         this.fromX = fromX;
         this.fromY = fromY;
         this.toX = toX;
@@ -46,18 +46,5 @@ public class LineElement extends PresentationElement {
     @Override
     public View getView(View parent, Slide slide) {
         return null;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "PresentationLine{" +
-                "thickness=" + thickness +
-                ", fromX=" + fromX +
-                ", fromY=" + fromY +
-                ", toX=" + toX +
-                ", toY=" + toY +
-                ", colour=" + colour +
-                '}';
     }
 }

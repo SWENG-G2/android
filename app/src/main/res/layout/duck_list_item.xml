@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/duck_list_item_padding"
-    android:background="@drawable/duck_list_item_bg"
     android:layout_marginHorizontal="@dimen/duck_list_item_h_margin"
-    android:layout_marginBottom="@dimen/item_vertical_spacing">
+    android:layout_marginBottom="@dimen/item_vertical_spacing"
+    android:background="@drawable/duck_list_item_bg"
+    android:padding="@dimen/duck_list_item_padding">
 
     <ImageView
         android:id="@+id/duck_image"
         android:layout_width="@dimen/duck_list_item_image_size"
         android:layout_height="@dimen/duck_list_item_image_size"
+        android:background="@drawable/duck_list_item_image_bg"
         android:contentDescription="@string/ducks_list_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/duck_list_item_image_bg"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/duck_name"

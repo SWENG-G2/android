@@ -3,5 +3,7 @@
     android:shape="rectangle">
     <solid android:color="@color/white" />
     <corners android:radius="@dimen/searchbar_radius" />
-    <stroke android:width="@dimen/searchbar_stroke" android:color="@color/sparkling_blue"/>
+    <stroke
+        android:width="@dimen/searchbar_stroke"
+        android:color="@color/sparkling_blue" />
 </shape>

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
 public abstract class AbstractSlide implements Slide {
-    protected int width, height, calculatedWidth, calculatedHeight, type;
+    protected final DisplayMetrics displayMetrics;
     private final String title;
     private final ArrayList<PresentationElement> elements;
-    protected final DisplayMetrics displayMetrics;
+    protected int width, height, calculatedWidth, calculatedHeight, type;
 
     public AbstractSlide(int width, int height, String title) {
         displayMetrics = Resources.getSystem().getDisplayMetrics();

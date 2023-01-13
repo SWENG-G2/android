@@ -4,22 +4,20 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import sweng.campusbirdsguide.R;
 
 public class DetailSlide extends AbstractSlide implements View.OnClickListener {
+    private static final int ANIMATION_DURATION_MS = 200;
+    private static final int CHEVRON_ROTATION_ANGLE = 180;
     private RelativeLayout slide;
     private ImageView chevron;
     private int chevronRotation = 0;
-
-    private static final int ANIMATION_DURATION_MS = 200;
 
     public DetailSlide(int width, int height, String title) {
         super(width, height, title);
@@ -47,10 +45,10 @@ public class DetailSlide extends AbstractSlide implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (slide != null) {
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(chevron, "rotation", chevronRotation, chevronRotation + 180);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(chevron, "rotation", chevronRotation, chevronRotation + CHEVRON_ROTATION_ANGLE);
             objectAnimator.setDuration(ANIMATION_DURATION_MS);
             objectAnimator.start();
-            chevronRotation = (chevronRotation == 180) ? 0 : 180;
+            chevronRotation = (chevronRotation == CHEVRON_ROTATION_ANGLE) ? 0 : CHEVRON_ROTATION_ANGLE;
             if (slide.getVisibility() == View.VISIBLE)
                 slide.setVisibility(View.GONE);
             else

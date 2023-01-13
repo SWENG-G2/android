@@ -1,10 +1,7 @@
 package sweng.campusbirdsguide.presentation.elements;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
@@ -14,16 +11,13 @@ public class CircleElement extends PresentationElement {
     private final int colour;
     private final int borderWidth;
     private final int borderColour;
-    private final int x;
-    private final int y;
 
     public CircleElement(int radius, int colour, int borderWidth, int borderColour, int x, int y) {
+        super(x, y);
         this.radius = radius;
         this.colour = colour;
         this.borderWidth = borderWidth;
         this.borderColour = borderColour;
-        this.x = x;
-        this.y = y;
 
         isShape = true;
     }
@@ -36,15 +30,15 @@ public class CircleElement extends PresentationElement {
         int calculatedRadius = dpToPx(radius);
         int border = dpToPx(borderWidth);
 
-        if (x == -2) { // Server asked for center in parent
+        if (x == ALIGN_CENTER_OF_PARENT) {
             cx = canvas.getWidth() / 2;
         }
 
-        if (y == -1)
+        if (y == MATCH_X_CLIENT_SIDE)
             cy = cx;
         else if (y < 0) {
             // Server asked to pad client side
-            // We know something is above in SP so we add that to the circle radius
+            // We know something is above in DP so we add that to the circle radius
             int padding = dpToPx(Math.abs(y));
             cy = calculatedRadius + padding;
         } else

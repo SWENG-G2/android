@@ -14,7 +14,6 @@ public class RequestMaker {
         this.queue = Volley.newRequestQueue(applicationContext);
     }
 
-
     public void query(String url, Result result) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, result::onSuccess, result::onError);
 

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
@@ -17,26 +16,22 @@ import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class AudioElement extends PresentationElement implements View.OnClickListener, View.OnAttachStateChangeListener {
+    private static final int DP_SIZE = 100;
     private final String url;
     private final boolean loop;
-    private final int x;
-    private final int y;
-
     private MediaPlayer mediaPlayer;
 
-    private static final int DP_SIZE = 100;
-
     public AudioElement(String url, boolean loop, int x, int y) {
+        super(x, y);
         this.url = url;
         this.loop = loop;
-        this.x = x;
-        this.y = y;
 
         isShape = false;
     }
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
+        // No-op, not a shape
     }
 
     @Override
@@ -50,19 +45,14 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         Drawable icon = ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_bird);
         button.setBackground(icon);
 
-        if (x == -3)
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        else {
+        if (noHorizontalLayoutRulesToApply(layoutParams))
             layoutParams.leftMargin = Math.round(xPos);
-        }
         layoutParams.topMargin = Math.round(yPos);
 
-        if (icon != null) {
-            int size = dpToPx(DP_SIZE);
+        int size = dpToPx(DP_SIZE);
+        layoutParams.width = size;
+        layoutParams.height = size;
 
-            layoutParams.width = size;
-            layoutParams.height = size;
-        }
         button.setLayoutParams(layoutParams);
 
         button.setOnClickListener(this);
@@ -100,6 +90,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
             e.printStackTrace();
         }
 
+        // Seek to start once media has been played
         mediaPlayer.setOnCompletionListener(mediaPlayer -> mediaPlayer.seekTo(0));
     }
 

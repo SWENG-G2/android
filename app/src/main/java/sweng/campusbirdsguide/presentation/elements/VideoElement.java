@@ -3,31 +3,31 @@ package sweng.campusbirdsguide.presentation.elements;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.bumptech.glide.Glide;
-
-import lombok.AllArgsConstructor;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-@AllArgsConstructor
 public class VideoElement extends PresentationElement {
     private final String url;
     private final int width;
     private final int height;
-    private final int x;
-    private final int y;
     private final boolean loop;
 
+    public VideoElement(String url, int width, int height, int x, int y, boolean loop) {
+        super(x, y);
+        this.url = url;
+        this.width = width;
+        this.height = height;
+        this.loop = loop;
+    }
+
     @Override
-    public void draw(Canvas canvas, Slide slide) {}
+    public void draw(Canvas canvas, Slide slide) {
+        // No-op, not a shape
+    }
 
     @Override
     public View getView(View parent, Slide slide) {
@@ -37,17 +37,10 @@ public class VideoElement extends PresentationElement {
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int yPos = dpToPx(y);
         int calculatedWidth = Math.round((width * slide.getCalculatedWidth()) / (float) slide.getWidth());
-        int calculatedHeight;
-        if (height == -1)
-            calculatedHeight = calculatedWidth;
-        else
-            calculatedHeight = dpToPx(height);
+        int calculatedHeight = dpToPx(height);
 
-        if (x > 0)
+        if (noHorizontalLayoutRulesToApply(layoutParams))
             layoutParams.leftMargin = xPos;
-        else if (x == -2) { // Server asked for center in parent
-            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        }
         layoutParams.topMargin = yPos;
         layoutParams.width = calculatedWidth;
         layoutParams.height = calculatedHeight;

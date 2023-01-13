@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class SlideViewHolder extends RecyclerView.ViewHolder {
@@ -40,6 +41,8 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         if (slideType == Slide.STANDARD_TYPE) {
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
             layoutParams.width = slide.getCalculatedWidth();
+
+            // If not, server requested wrap content
             if (calculatedHeight > 0)
                 layoutParams.height = calculatedHeight;
             else
@@ -50,6 +53,8 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         } else {
             ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) relativeLayout.getLayoutParams();
             layoutParams.width = slide.getCalculatedWidth();
+
+            // If not, server requested wrap content
             if (calculatedHeight > 0)
                 layoutParams.height = calculatedHeight;
             else
@@ -72,8 +77,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
             else relativeLayout.addView(element.getView(itemView, slide));
         }
 
-        relativeLayout.requestLayout();
-        relativeLayout.invalidate();
         canvas.setSlide(slide);
         canvas.setShapes(shapes);
 

@@ -32,10 +32,6 @@ public class CanvasView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

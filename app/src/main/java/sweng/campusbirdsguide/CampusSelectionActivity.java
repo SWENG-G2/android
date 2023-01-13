@@ -1,63 +1,34 @@
 package sweng.campusbirdsguide;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.volley.VolleyError;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import sweng.campusbirdsguide.presentation.ListItemClickListener;
-import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
-import sweng.campusbirdsguide.presentation.elements.PresentationElement;
-import sweng.campusbirdsguide.xml.PresentationParser;
-import sweng.campusbirdsguide.xml.slide.Slide;
+import sweng.campusbirdsguide.utils.ListItemClickAction;
+import sweng.campusbirdsguide.utils.UIUtils;
+import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
 public class CampusSelectionActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
-    private void populateList(String xml) {
-        PresentationParser parser = new PresentationParser();
-
-        try {
-            List<Slide> slides = parser.parse(xml, "basic");
-
-            ListItemClickListener listItemClickListener = position -> {
-                long campusId = Long.parseLong(slides.get(position).getTitle());
-                sharedPreferences.edit().putLong(getString(R.string.campusId), campusId).apply();
-                finish();
-            };
-
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener, 0);
-            RecyclerView recyclerView = findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerView.setAdapter(slidesRecyclerViewAdapter);
-
-            // Prevents views from being "written on top of". Perhaps not the best way to do this
-            recyclerView.setItemViewCacheSize(slides.size());
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private ConstraintLayout campusSelectionActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_campus_selection);
+
+        campusSelectionActivity = findViewById(R.id.campus_selection_activity);
 
         sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
 
@@ -78,7 +49,11 @@ public class CampusSelectionActivity extends AppCompatActivity {
         requestMaker.query(campusListUrl, new Result() {
             @Override
             public void onSuccess(String string) {
-                populateList(string);
+                ListItemClickAction listItemClickAction = id -> {
+                    sharedPreferences.edit().putInt(getString(R.string.campusId), id).apply();
+                    finish();
+                };
+                UIUtils.populateList(string, campusSelectionActivity, SlideFactory.BASIC_SLIDE, listItemClickAction, 0);
             }
 
             @Override

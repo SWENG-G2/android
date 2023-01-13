@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import sweng.campusbirdsguide.R;
+import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHolder> {

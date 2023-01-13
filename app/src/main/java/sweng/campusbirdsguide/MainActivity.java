@@ -8,64 +8,31 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.VolleyError;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
-import sweng.campusbirdsguide.presentation.ListItemClickListener;
-import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
-import sweng.campusbirdsguide.xml.PresentationParser;
-import sweng.campusbirdsguide.xml.slide.Slide;
+import sweng.campusbirdsguide.utils.ListItemClickAction;
+import sweng.campusbirdsguide.utils.UIUtils;
+import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long NO_CAMPUS_SELECTED = -1L;
+    private static final int NO_CAMPUS_SELECTED = -1;
 
-    private long campusId;
+    private int campusId;
     private SharedPreferences sharedPreferences;
-
-    private void populateList(String xml) {
-        PresentationParser parser = new PresentationParser();
-
-        try {
-            List<Slide> slides = parser.parse(xml, "bird");
-
-            ListItemClickListener listItemClickListener = position -> {
-                long birdId = Long.parseLong(slides.get(position).getTitle());
-
-                Intent birdIntent = new Intent(this, BirdActivity.class);
-                birdIntent.putExtra("birdId", birdId);
-                startActivity(birdIntent);
-            };
-
-            SlidesRecyclerViewAdapter slidesRecyclerViewAdapter = new SlidesRecyclerViewAdapter(slides, listItemClickListener, 5);
-            RecyclerView recyclerView = findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerView.setAdapter(slidesRecyclerViewAdapter);
-
-            // Prevents views from being "written on top of". Perhaps not the best way to do this
-            recyclerView.setItemViewCacheSize(slides.size());
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private ConstraintLayout mainActivity;
 
     private void fetchBirds() {
         RequestMaker requestMaker = new RequestMaker(getApplicationContext());
@@ -73,8 +40,13 @@ public class MainActivity extends AppCompatActivity {
         String birdsUrl = getString(R.string.serverURL) + String.format(Locale.UK, getString(R.string.birdsList), campusId);
         requestMaker.query(birdsUrl, new Result() {
             @Override
-            public void onSuccess(String string) {
-                populateList(string);
+            public void onSuccess(String response) {
+                ListItemClickAction listItemClickAction = id -> {
+                    Intent birdIntent = new Intent(getApplicationContext(), BirdActivity.class);
+                    birdIntent.putExtra("birdId", id);
+                    startActivity(birdIntent);
+                };
+                UIUtils.populateList(response, mainActivity, SlideFactory.BIRD_SLIDE, listItemClickAction, 5);
                 // Hide progress loading spinner
                 findViewById(R.id.loading).setVisibility(View.GONE);
             }
@@ -91,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainActivity = findViewById(R.id.main_activity);
+
         // Set app bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
-        campusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
+        campusId = sharedPreferences.getInt(getString(R.string.campusId), NO_CAMPUS_SELECTED);
 
         if (campusId != NO_CAMPUS_SELECTED) {
             // Show loading spinner
@@ -118,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        long newCampusId = sharedPreferences.getLong(getString(R.string.campusId), NO_CAMPUS_SELECTED);
+        int newCampusId = sharedPreferences.getInt(getString(R.string.campusId), NO_CAMPUS_SELECTED);
         if (newCampusId != campusId) {
             campusId = newCampusId;
             // Hide select location hint
@@ -146,20 +120,5 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * This method generates an array of 20 ducks names.
-     *
-     * @return An array containing 20 example ducks name.
-     */
-    private String[] generateDummyDucksList() {
-        List<String> ducks = new ArrayList<>();
-
-        for (int i = 0; i < 21; i++) {
-            ducks.add(String.format(Locale.getDefault(), "Duck #%d", i + 1));
-        }
-
-        return ducks.toArray(new String[20]);
     }
 }

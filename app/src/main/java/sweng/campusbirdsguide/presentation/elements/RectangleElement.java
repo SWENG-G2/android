@@ -1,13 +1,9 @@
 package sweng.campusbirdsguide.presentation.elements;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.TypedValue;
 import android.view.View;
-
-import androidx.annotation.NonNull;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
@@ -17,17 +13,14 @@ public class RectangleElement extends PresentationElement {
     private final int colour;
     private final int borderWidth;
     private final int borderColour;
-    private final int x;
-    private final int y;
 
     public RectangleElement(int width, int height, int colour, int borderWidth, int borderColour, int x, int y) {
+        super(x, y);
         this.width = width;
         this.height = height;
         this.colour = colour;
         this.borderWidth = borderWidth;
         this.borderColour = borderColour;
-        this.x = x;
-        this.y = y;
 
         isShape = true;
     }
@@ -57,19 +50,5 @@ public class RectangleElement extends PresentationElement {
     @Override
     public View getView(View parent, Slide slide) {
         return null;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "RectangleElement{" +
-                "width=" + width +
-                ", height=" + height +
-                ", colour=" + colour +
-                ", borderWidth=" + borderWidth +
-                ", borderColour=" + borderColour +
-                ", x=" + x +
-                ", y=" + y +
-                '}';
     }
 }
