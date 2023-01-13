@@ -75,7 +75,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
         canvas.setSlide(slide);
         canvas.setShapes(shapes);
-        canvas.invalidate();
 
         slide.slideSpecifics(itemView, itemView.getContext());
     }

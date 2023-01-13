@@ -36,9 +36,9 @@ public class RectangleElement extends PresentationElement {
     public void draw(Canvas canvas, Slide slide) {
         int left = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int right = Math.round(left + (width * slide.getCalculatedWidth()) / (float) slide.getWidth());
-        int top = Math.round((y * slide.getCalculatedHeight()) / (float) slide.getHeight());
-        int bottom = Math.round(top + (height * slide.getCalculatedHeight()) / (float) slide.getHeight());
-        int border = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, borderWidth, Resources.getSystem().getDisplayMetrics()));
+        int top = dpToPx(y);
+        int bottom = top + dpToPx(height);
+        int border = dpToPx(borderWidth);
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(borderColour);

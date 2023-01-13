@@ -42,7 +42,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
-        float yPos = (y * slide.getCalculatedHeight()) / (float) slide.getHeight();
+        float yPos = dpToPx(y);
 
         Drawable icon = ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_bird);
         button.setBackground(icon);

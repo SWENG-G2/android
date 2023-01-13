@@ -3,7 +3,6 @@ package sweng.campusbirdsguide.presentation.elements;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -31,22 +30,26 @@ public class CircleElement extends PresentationElement {
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int cx = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int cy;
 
-        int calculatedRadius = Math.round((radius * slide.getCalculatedWidth()) / (float) slide.getWidth());
-        int border = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, borderWidth, displayMetrics));
+        int calculatedRadius = dpToPx(radius);
+        int border = dpToPx(borderWidth);
+
+        if (x == -2) { // Server asked for center in parent
+            cx = canvas.getWidth() / 2;
+        }
 
         if (y == -1)
             cy = cx;
         else if (y < 0) {
             // Server asked to pad client side
             // We know something is above in SP so we add that to the circle radius
-            int padding = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, Math.abs(y), displayMetrics));
+            int padding = dpToPx(Math.abs(y));
             cy = calculatedRadius + padding;
         } else
-            cy = Math.round((y * slide.getCalculatedHeight()) / (float) slide.getHeight());
+            cy = dpToPx(y);
+
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 

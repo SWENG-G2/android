@@ -1,9 +1,12 @@
 package sweng.campusbirdsguide.presentation.elements;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -37,22 +40,27 @@ public class ImageElement extends PresentationElement {
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
-        int yPos = Math.round((y * slide.getCalculatedHeight()) / (float) slide.getHeight());
+        int yPos = dpToPx(y);
         int calculatedWidth = Math.round((width * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int calculatedHeight;
         if (height == -1)
             calculatedHeight = calculatedWidth;
         else
-            calculatedHeight = Math.round((height * slide.getCalculatedHeight()) / (float) slide.getHeight());
+            calculatedHeight = dpToPx(height);
 
         layoutParams.topToTop = parent.getId();
         layoutParams.startToStart = parent.getId();
-        layoutParams.leftMargin = xPos;
+        if (x > 0)
+            layoutParams.leftMargin = xPos;
+        else if (x == -2) { // Server asked for center in parent
+            layoutParams.endToEnd = parent.getId();
+        }
         layoutParams.topMargin = yPos;
         layoutParams.width = calculatedWidth;
         layoutParams.height = calculatedHeight;
 
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        //imageView.setAdjustViewBounds(true);
 
         imageView.setLayoutParams(layoutParams);
 

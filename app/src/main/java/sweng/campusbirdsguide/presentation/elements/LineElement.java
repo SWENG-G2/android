@@ -37,8 +37,8 @@ public class LineElement extends PresentationElement {
 
         float startX = (fromX * canvas.getWidth()) / (float) slide.getWidth();
         float endX = (toX * canvas.getWidth()) / (float) slide.getWidth();
-        float startY = (fromY * canvas.getHeight()) / (float) slide.getHeight();
-        float endY = (toY * canvas.getHeight()) / (float) slide.getHeight();
+        float startY = dpToPx(fromY);
+        float endY = dpToPx(toY);
 
         canvas.drawLine(startX, startY, endX, endY, paint);
     }

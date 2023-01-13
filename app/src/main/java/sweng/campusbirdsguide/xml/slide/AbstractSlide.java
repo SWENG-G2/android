@@ -20,8 +20,8 @@ public abstract class AbstractSlide implements Slide {
         this.height = height;
         this.width = width;
         this.calculatedWidth = displayMetrics.widthPixels;
-        // Assume height in SP, since slides need to contain text
-        this.calculatedHeight = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, height, displayMetrics));
+        // Assume height in DP, makes it easier to work with reference system
+        this.calculatedHeight = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, displayMetrics));
         this.title = title;
         this.type = STANDARD_TYPE;
 

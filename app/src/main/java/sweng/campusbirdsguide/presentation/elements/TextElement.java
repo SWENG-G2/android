@@ -45,7 +45,7 @@ public class TextElement extends PresentationElement {
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
-        float yPos = (y * slide.getCalculatedHeight()) / (float) slide.getHeight();
+        float yPos = dpToPx(y);
 
         layoutParams.topToTop = parent.getId();
         layoutParams.startToStart = parent.getId();
