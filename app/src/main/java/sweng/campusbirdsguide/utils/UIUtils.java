@@ -23,10 +23,13 @@ public class UIUtils {
             List<Slide> slides = parser.parse(xml, slideType);
 
             ListItemClickListener listItemClickListener = position -> {
-                int id = Integer.parseInt(slides.get(position).getTitle());
+                try {
+                    int id = Integer.parseInt(slides.get(position).getTitle());
 
-                if (listItemClickAction != null)
-                    listItemClickAction.performAction(id);
+                    if (listItemClickAction != null)
+                        listItemClickAction.performAction(id);
+                } catch (NumberFormatException ignored) {}
+                // Exception can be ignored, it would happen only on detail slides
             };
 
 
