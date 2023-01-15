@@ -21,4 +21,5 @@
 
     <!-- Bird detail -->
     <string name="expand_section">Expand section</string>
+    <string name="play_pause">Play/Pause Button</string>
 </resources>

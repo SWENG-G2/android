@@ -61,6 +61,7 @@ public class CanvasView extends View {
 
         int parentWidth = ((View) getParent()).getMeasuredWidth();
         int parentHeight = ((View) getParent()).getMeasuredHeight();
+
         setMeasuredDimension(parentWidth, parentHeight);
     }
 }

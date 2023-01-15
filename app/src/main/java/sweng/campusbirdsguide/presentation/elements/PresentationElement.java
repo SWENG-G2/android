@@ -11,7 +11,8 @@ import lombok.Getter;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public abstract class PresentationElement {
-    protected static final DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+    protected static final DisplayMetrics displayMetrics
+            = Resources.getSystem().getDisplayMetrics();
     protected static final int MATCH_X_CLIENT_SIDE = -1;
     protected static final int MATCH_WIDTH_CLIENT_SIDE = -1;
     protected static final int ALIGN_CENTER_OF_PARENT = -2;
@@ -31,7 +32,8 @@ public abstract class PresentationElement {
     abstract public View getView(View parent, Slide slide);
 
     protected int dpToPx(int input) {
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, input, displayMetrics));
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, input,
+                displayMetrics));
     }
 
     protected boolean noHorizontalLayoutRulesToApply(RelativeLayout.LayoutParams layoutParams) {

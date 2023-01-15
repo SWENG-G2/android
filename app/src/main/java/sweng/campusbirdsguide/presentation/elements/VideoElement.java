@@ -2,10 +2,19 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
+
+import androidx.appcompat.widget.AppCompatSeekBar;
+
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
@@ -31,7 +40,11 @@ public class VideoElement extends PresentationElement {
 
     @Override
     public View getView(View parent, Slide slide) {
-        VideoView videoView = new VideoView(parent.getContext());
+        // We need to inflate the player view to override the controls
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        StyledPlayerView styledPlayerView = (StyledPlayerView) layoutInflater.inflate(R.layout.player_view, null);
+        ExoPlayer exoPlayer = new ExoPlayer.Builder(parent.getContext()).build();
+        styledPlayerView.setPlayer(exoPlayer);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
@@ -45,16 +58,26 @@ public class VideoElement extends PresentationElement {
         layoutParams.width = calculatedWidth;
         layoutParams.height = calculatedHeight;
 
-        videoView.setLayoutParams(layoutParams);
+        styledPlayerView.setLayoutParams(layoutParams);
 
-        MediaController mediaController = new MediaController(parent.getContext());
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
 
         String serverURL = parent.getContext().getResources().getString(R.string.serverURL);
         Uri videoURI = Uri.parse(serverURL + url);
-        videoView.setVideoURI(videoURI);
+        MediaItem video = MediaItem.fromUri(videoURI);
 
-        return videoView;
+        exoPlayer.addMediaItem(video);
+        exoPlayer.prepare();
+
+        parent.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View view) {}
+
+            @Override
+            public void onViewDetachedFromWindow(View view) {
+                exoPlayer.release();
+            }
+        });
+
+        return styledPlayerView;
     }
 }
