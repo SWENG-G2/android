@@ -2,6 +2,9 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.graphics.text.LineBreaker;
+import android.os.Build;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -46,10 +49,14 @@ public class TextElement extends PresentationElement {
         layoutParams.leftMargin = Math.round(xPos);
         layoutParams.topMargin = Math.round(yPos);
 
-        textView.setText(content);
+        textView.setText(Html.fromHtml(content));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView.setTextColor(color);
         textView.setLayoutParams(layoutParams);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_NONE);
+        }
+
 
         if (font.equals("mono")) {
             Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
