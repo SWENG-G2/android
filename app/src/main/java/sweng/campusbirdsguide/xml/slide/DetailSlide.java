@@ -34,7 +34,8 @@ public class DetailSlide extends AbstractSlide implements View.OnClickListener {
         TextView textView = containerView.findViewById(R.id.title);
         textView.setText(getTitle());
 
-        containerView.setOnClickListener(this);
+        RelativeLayout titleLayout = containerView.findViewById(R.id.title_layout);
+        titleLayout.setOnClickListener(this);
 
         slide = containerView.findViewById(R.id.slide);
         slide.setVisibility(View.GONE);
