@@ -30,7 +30,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         this.container = container;
 
         if (listItemClickListener != null) {
-            itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getAdapterPosition()));
+            itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getBindingAdapterPosition()));
         }
 
         canvas = itemView.findViewById(R.id.canvas);
