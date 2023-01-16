@@ -24,7 +24,6 @@ public abstract class ElementParser {
 
 
     protected static int parseColour(String colour) {
-        System.out.println(colour);
         if (colour != null && colour.length() == EXPECTED_COLOUR_STRING_LENGTH) {
             String formattedColour = "#" + colour.substring(ALPHA_START_STRING_INDEX)
                     + colour.substring(RGB_START_STRING_INDEX, ALPHA_START_STRING_INDEX);

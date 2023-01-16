@@ -79,19 +79,26 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA).build());
 
-        try {
-            String serverURL = view.getContext().getString(R.string.serverURL);
-            mediaPlayer.setDataSource(serverURL + url);
-            mediaPlayer.prepare();
 
-            if (loop)
-                mediaPlayer.setLooping(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String serverURL = view.getContext().getString(R.string.serverURL);
 
-        // Seek to start once media has been played
-        mediaPlayer.setOnCompletionListener(mediaPlayer -> mediaPlayer.seekTo(0));
+        // Prepare media player in the background
+        Runnable runnable = () -> {
+            try {
+                mediaPlayer.setDataSource(serverURL + url);
+                mediaPlayer.prepare();
+
+                if (loop)
+                    mediaPlayer.setLooping(true);
+
+                // Seek to start once media has been played
+                mediaPlayer.setOnCompletionListener(mediaPlayer -> mediaPlayer.seekTo(0));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+
+        new Thread(runnable).start();
     }
 
     @Override
