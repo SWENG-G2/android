@@ -3,6 +3,7 @@ package sweng.campusbirdsguide.presentation.elements;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
+import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
@@ -60,7 +61,7 @@ public class CircleElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
+    public View getView(View parent, ViewGroup container, Slide slide) {
         return null;
     }
 }

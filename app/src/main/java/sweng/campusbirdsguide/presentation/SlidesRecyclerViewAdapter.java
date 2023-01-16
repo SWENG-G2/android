@@ -34,7 +34,7 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
         else
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expandable_slide, parent, false);
 
-        return new SlideViewHolder(view, listItemClickListener, horizontalMargin);
+        return new SlideViewHolder(view, parent, listItemClickListener, horizontalMargin);
     }
 
     @Override

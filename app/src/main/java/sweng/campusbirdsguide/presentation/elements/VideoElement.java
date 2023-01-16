@@ -4,11 +4,13 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSeekBar;
 
 import com.google.android.exoplayer2.ExoPlayer;
@@ -39,7 +41,7 @@ public class VideoElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
+    public View getView(View parent, ViewGroup container, Slide slide) {
         // We need to inflate the player view to override the controls
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         StyledPlayerView styledPlayerView = (StyledPlayerView) layoutInflater.inflate(R.layout.player_view, null);
@@ -68,13 +70,24 @@ public class VideoElement extends PresentationElement {
         exoPlayer.addMediaItem(video);
         exoPlayer.prepare();
 
-        parent.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+        container.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View view) {}
 
             @Override
             public void onViewDetachedFromWindow(View view) {
                 exoPlayer.release();
+            }
+        });
+
+        styledPlayerView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {}
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                if (exoPlayer.isPlaying())
+                    exoPlayer.pause();
             }
         });
 

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
+    public View getView(View parent, ViewGroup container, Slide slide) {
         TextView textView = new TextView(parent.getContext());
         // Match parent to allow text to wrap
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

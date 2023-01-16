@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import lombok.Getter;
@@ -29,7 +30,7 @@ public abstract class PresentationElement {
 
     abstract public void draw(Canvas canvas, Slide slide);
 
-    abstract public View getView(View parent, Slide slide);
+    abstract public View getView(View parent, ViewGroup container, Slide slide);
 
     protected int dpToPx(int input) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, input,

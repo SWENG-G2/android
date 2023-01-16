@@ -5,9 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class AudioElement extends PresentationElement implements View.OnClickListener, View.OnAttachStateChangeListener {
+public class AudioElement extends PresentationElement implements View.OnClickListener {
     private static final int DP_SIZE = 100;
     private final String url;
     private final boolean loop;
@@ -35,7 +37,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
+    public View getView(View parent, ViewGroup container, Slide slide) {
         ImageButton button = new ImageButton(parent.getContext());
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
@@ -56,23 +58,26 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         button.setLayoutParams(layoutParams);
 
         button.setOnClickListener(this);
-        button.addOnAttachStateChangeListener(this);
+        setUpMediaPlayer(container);
+
+        button.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                    mediaPlayer.seekTo(0);
+                }
+            }
+        });
 
         return button;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.pause();
-            else
-                mediaPlayer.start();
-        }
-    }
-
-    @Override
-    public void onViewAttachedToWindow(View view) {
+    private void setUpMediaPlayer(ViewGroup container) {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
@@ -80,7 +85,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                         .setUsage(AudioAttributes.USAGE_MEDIA).build());
 
 
-        String serverURL = view.getContext().getString(R.string.serverURL);
+        String serverURL = container.getContext().getString(R.string.serverURL);
 
         // Prepare media player in the background
         Runnable runnable = () -> {
@@ -97,14 +102,29 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                 e.printStackTrace();
             }
         };
-
         new Thread(runnable).start();
+
+        container.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                }
+            }
+        });
     }
 
     @Override
-    public void onViewDetachedFromWindow(View view) {
+    public void onClick(View view) {
         if (mediaPlayer != null) {
-            mediaPlayer.release();
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.pause();
+            else
+                mediaPlayer.start();
         }
     }
 }

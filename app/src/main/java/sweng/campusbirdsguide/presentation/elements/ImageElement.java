@@ -2,6 +2,7 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -27,7 +28,7 @@ public class ImageElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, Slide slide) {
+    public View getView(View parent, ViewGroup container, Slide slide) {
         ImageView imageView = new ImageView(parent.getContext());
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 

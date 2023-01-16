@@ -2,6 +2,7 @@ package sweng.campusbirdsguide.presentation;
 
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -18,13 +19,15 @@ import sweng.campusbirdsguide.xml.slide.Slide;
 public class SlideViewHolder extends RecyclerView.ViewHolder {
     private final CanvasView canvas;
     private final View itemView;
+    private final ViewGroup container;
     private final RelativeLayout relativeLayout;
     private final int horizontalMargin;
 
-    public SlideViewHolder(@NonNull View itemView, ListItemClickListener listItemClickListener, int horizontalMargin) {
+    public SlideViewHolder(@NonNull View itemView, ViewGroup container, ListItemClickListener listItemClickListener, int horizontalMargin) {
         super(itemView);
 
         this.itemView = itemView;
+        this.container = container;
 
         if (listItemClickListener != null) {
             itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getAdapterPosition()));
@@ -74,7 +77,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         ArrayList<PresentationElement> shapes = new ArrayList<>();
         for (PresentationElement element : slide.getElements()) {
             if (element.isShape()) shapes.add(element);
-            else relativeLayout.addView(element.getView(itemView, slide));
+            else relativeLayout.addView(element.getView(itemView, container, slide));
         }
 
         canvas.setSlide(slide);
