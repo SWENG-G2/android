@@ -3,6 +3,7 @@ package sweng.campusbirdsguide.presentation;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,6 @@ import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class SlideViewHolder extends RecyclerView.ViewHolder {
-    private final CanvasView canvas;
     private final View itemView;
     private final ViewGroup container;
     private final RelativeLayout relativeLayout;
@@ -33,7 +33,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
             itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getBindingAdapterPosition()));
         }
 
-        canvas = itemView.findViewById(R.id.canvas);
         relativeLayout = itemView.findViewById(R.id.slide);
         this.horizontalMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, horizontalMargin, itemView.getContext().getResources().getDisplayMetrics()));
     }
@@ -80,9 +79,28 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
             else relativeLayout.addView(element.getView(itemView, container, slide));
         }
 
-        canvas.setSlide(slide);
-        canvas.setShapes(shapes);
-
         slide.slideSpecifics(itemView, itemView.getContext());
+
+        relativeLayout.requestLayout();
+
+        relativeLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                CanvasView canvas = new CanvasView(relativeLayout.getContext());
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                canvas.setLayoutParams(layoutParams);
+
+                canvas.setSlide(slide);
+                canvas.setShapes(shapes);
+
+                relativeLayout.addView(canvas);
+
+                // Bring canvas to bottom, other views should be on top
+                canvas.setZ(-1);
+
+                relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
     }
 }
