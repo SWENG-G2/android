@@ -64,4 +64,9 @@ public class CircleElement extends PresentationElement {
     public View getView(View parent, ViewGroup container, Slide slide) {
         return null;
     }
+
+    @Override
+    public String getSearchableContent() {
+        return null;
+    }
 }

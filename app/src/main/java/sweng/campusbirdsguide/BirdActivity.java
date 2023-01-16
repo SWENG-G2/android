@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
+import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.utils.UIUtils;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
 

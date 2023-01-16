@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -15,13 +16,15 @@ import com.android.volley.VolleyError;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
+import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.utils.ListItemClickAction;
 import sweng.campusbirdsguide.utils.UIUtils;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
-public class CampusSelectionActivity extends AppCompatActivity {
+public class CampusSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private SharedPreferences sharedPreferences;
     private ConstraintLayout campusSelectionActivity;
+    private SlidesRecyclerViewAdapter slidesRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class CampusSelectionActivity extends AppCompatActivity {
                     sharedPreferences.edit().putInt(getString(R.string.campusId), id).apply();
                     finish();
                 };
-                UIUtils.populateList(string, campusSelectionActivity, SlideFactory.BASIC_SLIDE, listItemClickAction, 0);
+                slidesRecyclerViewAdapter = UIUtils.populateList(string, campusSelectionActivity, SlideFactory.BASIC_SLIDE, listItemClickAction, 0);
             }
 
             @Override
@@ -61,6 +64,11 @@ public class CampusSelectionActivity extends AppCompatActivity {
                 System.out.println(volleyError.getMessage());
             }
         });
+
+        // Search functionality
+        SearchView searchView = findViewById(R.id.search);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnClickListener(v -> searchView.setIconified(false));
     }
 
     @Override
@@ -68,5 +76,17 @@ public class CampusSelectionActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (slidesRecyclerViewAdapter != null)
+            slidesRecyclerViewAdapter.getFilter().filter(newText);
+        return false;
     }
 }

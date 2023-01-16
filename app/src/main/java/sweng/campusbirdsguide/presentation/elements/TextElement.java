@@ -66,4 +66,9 @@ public class TextElement extends PresentationElement {
 
         return textView;
     }
+
+    @Override
+    public String getSearchableContent() {
+        return content.toLowerCase();
+    }
 }

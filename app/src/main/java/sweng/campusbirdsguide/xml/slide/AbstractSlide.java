@@ -67,4 +67,13 @@ public abstract class AbstractSlide implements Slide {
     public int getType() {
         return type;
     }
+
+    @Override
+    public int getId() {
+        try {
+            return Integer.parseInt(getTitle());
+        } catch (NumberFormatException numberFormatException) {
+            return -1;
+        }
+    }
 }

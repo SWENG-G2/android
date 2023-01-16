@@ -1,25 +1,33 @@
 package sweng.campusbirdsguide.presentation;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import sweng.campusbirdsguide.R;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHolder> {
-    private final List<Slide> slides;
+public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHolder> implements Filterable {
+    private final List<Slide> initialSlides;
     private final ListItemClickListener listItemClickListener;
     private final int horizontalMargin;
+    private List<Slide> slides;
 
     public SlidesRecyclerViewAdapter(List<Slide> slides, ListItemClickListener listItemClickListener, int horizontalMargin) {
         this.slides = slides;
+        this.initialSlides = slides;
         this.listItemClickListener = listItemClickListener;
         this.horizontalMargin = horizontalMargin;
     }
@@ -50,5 +58,49 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
     @Override
     public int getItemViewType(int position) {
         return slides.get(position).getType();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+                List<Slide> filteredSlides = new ArrayList<>();
+
+                String lowercaseConstraint = constraint.toString().toLowerCase();
+
+                for (Slide slide : initialSlides) {
+                    if (slide.getTitle().toLowerCase().contains(lowercaseConstraint)) {
+                        filteredSlides.add(slide);
+                        break;
+                    }
+
+                    for (PresentationElement element : slide.getElements()) {
+                        String searchableContent = element.getSearchableContent();
+                        if (searchableContent != null && searchableContent.contains(lowercaseConstraint)) {
+                            filteredSlides.add(slide);
+                            break;
+                        }
+                    }
+                }
+
+                filterResults.count = filteredSlides.size();
+                filterResults.values = filteredSlides;
+                return filterResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                if (results != null)
+                    slides = (List<Slide>) results.values;
+                else
+                    slides = initialSlides;
+
+                notifyDataSetChanged();
+            }
+        };
     }
 }

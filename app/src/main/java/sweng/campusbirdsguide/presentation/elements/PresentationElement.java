@@ -32,6 +32,8 @@ public abstract class PresentationElement {
 
     abstract public View getView(View parent, ViewGroup container, Slide slide);
 
+    abstract public String getSearchableContent();
+
     protected int dpToPx(int input) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, input,
                 displayMetrics));

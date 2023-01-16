@@ -22,22 +22,24 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
     private final ViewGroup container;
     private final RelativeLayout relativeLayout;
     private final int horizontalMargin;
+    private final ListItemClickListener listItemClickListener;
 
     public SlideViewHolder(@NonNull View itemView, ViewGroup container, ListItemClickListener listItemClickListener, int horizontalMargin) {
         super(itemView);
 
         this.itemView = itemView;
         this.container = container;
-
-        if (listItemClickListener != null) {
-            itemView.setOnClickListener(view -> listItemClickListener.onItemClick(getBindingAdapterPosition()));
-        }
+        this.listItemClickListener = listItemClickListener;
 
         relativeLayout = itemView.findViewById(R.id.slide);
         this.horizontalMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, horizontalMargin, itemView.getContext().getResources().getDisplayMetrics()));
     }
 
     public void draw(Slide slide) {
+        if (listItemClickListener != null) {
+            itemView.setOnClickListener(view -> listItemClickListener.onItemClick(slide.getId()));
+        }
+
         int slideType = slide.getType();
         int calculatedHeight = slide.getCalculatedHeight();
         if (slideType == Slide.STANDARD_TYPE) {

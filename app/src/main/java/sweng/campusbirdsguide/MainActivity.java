@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -22,17 +23,19 @@ import java.util.Locale;
 
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
+import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
 import sweng.campusbirdsguide.utils.ListItemClickAction;
 import sweng.campusbirdsguide.utils.UIUtils;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final int NO_CAMPUS_SELECTED = -1;
 
     private int campusId;
     private SharedPreferences sharedPreferences;
     private ConstraintLayout mainActivity;
+    private SlidesRecyclerViewAdapter slidesRecyclerViewAdapter;
 
     private void fetchBirds() {
         RequestMaker requestMaker = new RequestMaker(getApplicationContext());
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     birdIntent.putExtra("birdId", id);
                     startActivity(birdIntent);
                 };
-                UIUtils.populateList(response, mainActivity, SlideFactory.BIRD_SLIDE, listItemClickAction, 5);
+                slidesRecyclerViewAdapter = UIUtils.populateList(response, mainActivity, SlideFactory.BIRD_SLIDE, listItemClickAction, 5);
                 // Hide progress loading spinner
                 findViewById(R.id.loading).setVisibility(View.GONE);
             }
@@ -87,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
         }
         // Show select location hint
         else findViewById(R.id.select_location_tv).setVisibility(View.VISIBLE);
+
+        // Search functionality
+        SearchView searchView = findViewById(R.id.search);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnClickListener(v -> searchView.setIconified(false));
     }
 
     @Override
@@ -120,5 +128,18 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (slidesRecyclerViewAdapter != null)
+            slidesRecyclerViewAdapter.getFilter().filter(newText);
+
+        return false;
     }
 }

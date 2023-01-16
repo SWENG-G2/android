@@ -56,4 +56,9 @@ public class ImageElement extends PresentationElement {
 
         return imageView;
     }
+
+    @Override
+    public String getSearchableContent() {
+        return null;
+    }
 }

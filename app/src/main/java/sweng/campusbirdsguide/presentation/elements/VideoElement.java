@@ -5,17 +5,12 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSeekBar;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import sweng.campusbirdsguide.R;
@@ -72,7 +67,8 @@ public class VideoElement extends PresentationElement {
 
         container.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
-            public void onViewAttachedToWindow(View view) {}
+            public void onViewAttachedToWindow(View view) {
+            }
 
             @Override
             public void onViewDetachedFromWindow(View view) {
@@ -82,7 +78,8 @@ public class VideoElement extends PresentationElement {
 
         styledPlayerView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
-            public void onViewAttachedToWindow(@NonNull View v) {}
+            public void onViewAttachedToWindow(@NonNull View v) {
+            }
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
@@ -92,5 +89,10 @@ public class VideoElement extends PresentationElement {
         });
 
         return styledPlayerView;
+    }
+
+    @Override
+    public String getSearchableContent() {
+        return null;
     }
 }

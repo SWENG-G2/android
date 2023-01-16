@@ -77,6 +77,11 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         return button;
     }
 
+    @Override
+    public String getSearchableContent() {
+        return null;
+    }
+
     private void setUpMediaPlayer(ViewGroup container) {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioAttributes(

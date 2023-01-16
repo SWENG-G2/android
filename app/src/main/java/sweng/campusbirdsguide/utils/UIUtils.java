@@ -16,19 +16,18 @@ import sweng.campusbirdsguide.xml.PresentationParser;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class UIUtils {
-    public static void populateList(String xml, View parent, String slideType, ListItemClickAction listItemClickAction, int horizontalMargin) {
+    public static SlidesRecyclerViewAdapter populateList(String xml, View parent, String slideType, ListItemClickAction listItemClickAction, int horizontalMargin) {
         PresentationParser parser = new PresentationParser();
 
         try {
             List<Slide> slides = parser.parse(xml, slideType);
 
-            ListItemClickListener listItemClickListener = position -> {
+            ListItemClickListener listItemClickListener = id -> {
                 try {
-                    int id = Integer.parseInt(slides.get(position).getTitle());
-
                     if (listItemClickAction != null)
                         listItemClickAction.performAction(id);
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
                 // Exception can be ignored, it would happen only on detail slides
             };
 
@@ -38,10 +37,11 @@ public class UIUtils {
             recyclerView.setLayoutManager(new LinearLayoutManager(parent.getContext()));
             recyclerView.setAdapter(slidesRecyclerViewAdapter);
 
-            // Prevents views from being "written on top of". Perhaps not the best way to do this
-            //recyclerView.setItemViewCacheSize(slides.size());
+            return slidesRecyclerViewAdapter;
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 }

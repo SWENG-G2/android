@@ -24,6 +24,8 @@ public interface Slide {
 
     int getType();
 
+    int getId();
+
     String getTitle();
 
     List<PresentationElement> getElements();
