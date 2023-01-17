@@ -70,6 +70,9 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
                 FilterResults filterResults = new FilterResults();
                 List<Slide> filteredSlides = new ArrayList<>();
 
+                if (constraint.length() == 0)
+                    return null;
+
                 String lowercaseConstraint = constraint.toString().toLowerCase();
 
                 for (Slide slide : initialSlides) {
