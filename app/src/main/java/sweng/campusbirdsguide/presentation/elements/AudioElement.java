@@ -37,8 +37,8 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
     }
 
     @Override
-    public View getView(View parent, ViewGroup container, Slide slide) {
-        ImageButton button = new ImageButton(parent.getContext());
+    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+        ImageButton button = parent.findViewById(id);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
@@ -73,8 +73,11 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                 }
             }
         });
+    }
 
-        return button;
+    @Override
+    public String getViewType() {
+        return AUDIO_ELEMENT;
     }
 
     @Override

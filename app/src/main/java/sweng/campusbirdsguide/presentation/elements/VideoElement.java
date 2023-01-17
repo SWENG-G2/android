@@ -2,7 +2,6 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -36,10 +35,8 @@ public class VideoElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, ViewGroup container, Slide slide) {
-        // We need to inflate the player view to override the controls
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        StyledPlayerView styledPlayerView = (StyledPlayerView) layoutInflater.inflate(R.layout.player_view, null);
+    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+        StyledPlayerView styledPlayerView = parent.findViewById(id);
         ExoPlayer exoPlayer = new ExoPlayer.Builder(parent.getContext()).build();
         styledPlayerView.setPlayer(exoPlayer);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -87,8 +84,11 @@ public class VideoElement extends PresentationElement {
                     exoPlayer.pause();
             }
         });
+    }
 
-        return styledPlayerView;
+    @Override
+    public String getViewType() {
+        return VIDEO_ELEMENT;
     }
 
     @Override

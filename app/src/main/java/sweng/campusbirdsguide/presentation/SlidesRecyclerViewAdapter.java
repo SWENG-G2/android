@@ -48,6 +48,7 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
     @Override
     public void onBindViewHolder(@NonNull SlideViewHolder holder, int position) {
         holder.draw(slides.get(position));
+        System.out.println("BIND " + slides.get(position).getTitle());
     }
 
     @Override

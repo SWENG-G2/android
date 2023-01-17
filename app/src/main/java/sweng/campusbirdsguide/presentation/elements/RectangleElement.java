@@ -49,7 +49,12 @@ public class RectangleElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, ViewGroup container, Slide slide) {
+    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+
+    }
+
+    @Override
+    public String getViewType() {
         return null;
     }
 

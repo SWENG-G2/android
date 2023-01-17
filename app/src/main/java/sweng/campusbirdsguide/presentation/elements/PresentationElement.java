@@ -18,6 +18,12 @@ public abstract class PresentationElement {
     protected static final int MATCH_WIDTH_CLIENT_SIDE = -1;
     protected static final int ALIGN_CENTER_OF_PARENT = -2;
 
+    // View types
+    public static final String AUDIO_ELEMENT = "audio";
+    public static final String IMAGE_ELEMENT = "image";
+    public static final String TEXT_ELEMENT = "text";
+    public static final String VIDEO_ELEMENT = "video";
+
     private static final int ALIGN_END_OF_PARENT = -3;
     protected final int x, y;
     @Getter
@@ -30,7 +36,9 @@ public abstract class PresentationElement {
 
     abstract public void draw(Canvas canvas, Slide slide);
 
-    abstract public View getView(View parent, ViewGroup container, Slide slide);
+    abstract public void applyView(View parent, ViewGroup container, Slide slide, int id);
+
+    abstract public String getViewType();
 
     abstract public String getSearchableContent();
 

@@ -28,8 +28,8 @@ public class ImageElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, ViewGroup container, Slide slide) {
-        ImageView imageView = new ImageView(parent.getContext());
+    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+        ImageView imageView = parent.findViewById(id);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
@@ -53,8 +53,11 @@ public class ImageElement extends PresentationElement {
 
         String serverURL = parent.getContext().getResources().getString(R.string.serverURL);
         Glide.with(parent).load(serverURL + url).into(imageView);
+    }
 
-        return imageView;
+    @Override
+    public String getViewType() {
+        return IMAGE_ELEMENT;
     }
 
     @Override

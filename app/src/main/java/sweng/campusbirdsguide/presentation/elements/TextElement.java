@@ -39,8 +39,8 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public View getView(View parent, ViewGroup container, Slide slide) {
-        TextView textView = new TextView(parent.getContext());
+    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+        TextView textView = parent.findViewById(id);
         // Match parent to allow text to wrap
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
@@ -63,8 +63,11 @@ public class TextElement extends PresentationElement {
             Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
             textView.setTypeface(typeface);
         }
+    }
 
-        return textView;
+    @Override
+    public String getViewType() {
+        return TEXT_ELEMENT;
     }
 
     @Override
