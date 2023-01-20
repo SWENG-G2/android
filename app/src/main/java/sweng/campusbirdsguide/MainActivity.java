@@ -1,8 +1,10 @@
 package sweng.campusbirdsguide;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.VolleyError;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Locale;
 
@@ -28,7 +35,7 @@ import sweng.campusbirdsguide.utils.ListItemClickAction;
 import sweng.campusbirdsguide.utils.UIUtils;
 import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     private static final int NO_CAMPUS_SELECTED = -1;
 
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private SharedPreferences sharedPreferences;
     private ConstraintLayout mainActivity;
     private SlidesRecyclerViewAdapter slidesRecyclerViewAdapter;
+    private MainActivityLifecycleObserver mainActivityLifecycleObserver;
 
     private void fetchBirds() {
         RequestMaker requestMaker = new RequestMaker(getApplicationContext());
@@ -67,6 +75,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_main);
 
         mainActivity = findViewById(R.id.main_activity);
+
+        mainActivityLifecycleObserver = new MainActivityLifecycleObserver(getActivityResultRegistry(), this);
+        getLifecycle().addObserver(mainActivityLifecycleObserver);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(this);
 
         // Set app bar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -141,5 +155,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             slidesRecyclerViewAdapter.getFilter().filter(newText);
 
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.fab) {
+//            Intent loadBirdIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//            loadBirdIntent.addCategory(Intent.CATEGORY_OPENABLE);
+//            loadBirdIntent.setType("application/xml");
+
+            mainActivityLifecycleObserver.loadBirdFromStorage();
+        }
     }
 }
