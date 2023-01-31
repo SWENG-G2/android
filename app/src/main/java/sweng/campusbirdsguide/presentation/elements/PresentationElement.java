@@ -26,8 +26,6 @@ public abstract class PresentationElement {
 
     private static final int ALIGN_END_OF_PARENT = -3;
     protected final int x, y;
-    @Getter
-    protected boolean isShape = false;
 
     protected PresentationElement(int x, int y) {
         this.x = x;

@@ -127,6 +127,7 @@ public class PresentationParser {
     }
 
     public List<Slide> parse(String input, String slideType) throws XmlPullParserException, IOException {
+        System.out.println(input);
         XmlPullParser xmlPullParser = Xml.newPullParser();
         xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
         xmlPullParser.setInput(new StringReader(input));

@@ -30,8 +30,6 @@ public class TextElement extends PresentationElement implements ViewElement {
         this.font = font;
         this.fontSize = fontSize;
         this.color = color;
-
-        isShape = false;
     }
 
     @Override

@@ -27,8 +27,6 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         super(x, y);
         this.url = url;
         this.loop = loop;
-
-        isShape = false;
     }
 
     @Override

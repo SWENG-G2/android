@@ -26,8 +26,6 @@ public class LineElement extends PresentationElement implements ShapeElement {
         this.toX = toX;
         this.toY = toY;
         this.colour = colour;
-
-        isShape = true;
     }
 
     @Override

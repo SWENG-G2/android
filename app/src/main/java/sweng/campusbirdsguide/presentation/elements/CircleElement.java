@@ -19,8 +19,6 @@ public class CircleElement extends PresentationElement implements ShapeElement {
         this.colour = colour;
         this.borderWidth = borderWidth;
         this.borderColour = borderColour;
-
-        isShape = true;
     }
 
     @Override

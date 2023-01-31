@@ -22,8 +22,6 @@ public class RectangleElement extends PresentationElement implements ShapeElemen
         this.colour = colour;
         this.borderWidth = borderWidth;
         this.borderColour = borderColour;
-
-        isShape = true;
     }
 
     @Override
