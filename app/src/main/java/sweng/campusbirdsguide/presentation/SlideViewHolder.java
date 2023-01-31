@@ -120,7 +120,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         int textCounter = 0;
         int videoCounter = 0;
         for (PresentationElement element : slide.getElements()) {
-            if (element.getClass().isAssignableFrom(ShapeElement.class)) shapes.add((ShapeElement) element);
+            if (element instanceof ShapeElement) shapes.add((ShapeElement) element);
             else {
                 ViewElement viewElement = (ViewElement) element;
                 switch (element.getViewType()) {
