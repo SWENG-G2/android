@@ -17,7 +17,7 @@ import java.io.IOException;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class AudioElement extends PresentationElement implements View.OnClickListener {
+public class AudioElement extends PresentationElement implements View.OnClickListener, ViewElement {
     private static final int DP_SIZE = 100;
     private final String url;
     private final boolean loop;
@@ -32,12 +32,7 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
     }
 
     @Override
-    public void draw(Canvas canvas, Slide slide) {
-        // No-op, not a shape
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+    public View applyView(View parent, ViewGroup container, Slide slide, int id) {
         ImageButton button = parent.findViewById(id);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
@@ -73,6 +68,8 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                 }
             }
         });
+
+        return button;
     }
 
     @Override

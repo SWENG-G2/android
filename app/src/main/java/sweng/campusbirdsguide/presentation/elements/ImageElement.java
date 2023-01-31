@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class ImageElement extends PresentationElement {
+public class ImageElement extends PresentationElement implements ViewElement {
     private final String url;
     private final int width;
     private final int height;
@@ -24,11 +24,7 @@ public class ImageElement extends PresentationElement {
     }
 
     @Override
-    public void draw(Canvas canvas, Slide slide) {
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+    public View applyView(View parent, ViewGroup container, Slide slide, int id) {
         ImageView imageView = parent.findViewById(id);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
@@ -53,6 +49,8 @@ public class ImageElement extends PresentationElement {
 
         String serverURL = parent.getContext().getResources().getString(R.string.serverURL);
         Glide.with(parent).load(serverURL + url).into(imageView);
+
+        return imageView;
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 
 import lombok.Setter;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.presentation.elements.ShapeElement;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 public class CanvasView extends View {
@@ -18,7 +19,7 @@ public class CanvasView extends View {
     @Setter
     private Slide slide = null;
     @Setter
-    private List<PresentationElement> shapes = null;
+    private List<ShapeElement> shapes = null;
 
     public CanvasView(Context context) {
         super(context);
@@ -37,7 +38,7 @@ public class CanvasView extends View {
         super.onDraw(canvas);
 
         if (slide != null && shapes != null) {
-            for (PresentationElement element : shapes) {
+            for (ShapeElement element : shapes) {
                 element.draw(canvas, slide);
             }
         }

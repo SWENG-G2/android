@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class RectangleElement extends PresentationElement {
+public class RectangleElement extends PresentationElement implements ShapeElement {
     private final int width;
     private final int height;
     private final int colour;
@@ -46,11 +46,6 @@ public class RectangleElement extends PresentationElement {
         paint.setStyle(Paint.Style.FILL);
 
         canvas.drawRect(rectangle, paint);
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
-
     }
 
     @Override

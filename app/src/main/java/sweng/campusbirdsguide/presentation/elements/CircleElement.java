@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class CircleElement extends PresentationElement {
+public class CircleElement extends PresentationElement implements ShapeElement {
     private final int radius;
     private final int colour;
     private final int borderWidth;
@@ -58,10 +58,6 @@ public class CircleElement extends PresentationElement {
         paint.setStyle(Paint.Style.FILL);
 
         canvas.drawCircle(cx, cy, calculatedRadius, paint);
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
     }
 
     @Override

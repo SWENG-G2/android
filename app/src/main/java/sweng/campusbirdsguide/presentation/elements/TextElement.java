@@ -17,7 +17,7 @@ import lombok.Setter;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-public class TextElement extends PresentationElement {
+public class TextElement extends PresentationElement implements ViewElement {
     private final String font;
     private final int fontSize;
     private final int color;
@@ -35,11 +35,7 @@ public class TextElement extends PresentationElement {
     }
 
     @Override
-    public void draw(Canvas canvas, Slide slide) {
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
+    public View applyView(View parent, ViewGroup container, Slide slide, int id) {
         TextView textView = parent.findViewById(id);
         // Match parent to allow text to wrap
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -63,6 +59,8 @@ public class TextElement extends PresentationElement {
             Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
             textView.setTypeface(typeface);
         }
+
+        return textView;
     }
 
     @Override

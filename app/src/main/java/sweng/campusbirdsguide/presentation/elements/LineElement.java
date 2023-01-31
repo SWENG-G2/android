@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
 
-public class LineElement extends PresentationElement {
+public class LineElement extends PresentationElement implements ShapeElement {
     private final int thickness;
     private final int fromX;
     private final int fromY;
@@ -42,11 +42,6 @@ public class LineElement extends PresentationElement {
         float endY = dpToPx(toY);
 
         canvas.drawLine(startX, startY, endX, endY, paint);
-    }
-
-    @Override
-    public void applyView(View parent, ViewGroup container, Slide slide, int id) {
-
     }
 
     @Override

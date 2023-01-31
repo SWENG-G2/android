@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
+import sweng.campusbirdsguide.presentation.elements.ShapeElement;
+import sweng.campusbirdsguide.presentation.elements.ViewElement;
 import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
@@ -101,7 +103,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void applyView(PresentationElement element, Slide slide, int id) {
+    private void applyView(ViewElement element, Slide slide, int id) {
         element.applyView(relativeLayout, container, slide, id);
     }
 
@@ -112,14 +114,15 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         return id;
     }
 
-    private void iterateObjects(Slide slide, ArrayList<PresentationElement> shapes) {
+    private void iterateObjects(Slide slide, ArrayList<ShapeElement> shapes) {
         int audioCounter = 0;
         int imageCounter = 0;
         int textCounter = 0;
         int videoCounter = 0;
         for (PresentationElement element : slide.getElements()) {
-            if (element.isShape()) shapes.add(element);
+            if (element.getClass().isAssignableFrom(ShapeElement.class)) shapes.add((ShapeElement) element);
             else {
+                ViewElement viewElement = (ViewElement) element;
                 switch (element.getViewType()) {
                     case PresentationElement.AUDIO_ELEMENT: {
                         int id = canReplace(audioElementIds, audioCounter);
@@ -131,7 +134,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
                             relativeLayout.addView(button);
                         }
-                        applyView(element, slide, id);
+                        applyView(viewElement, slide, id);
                         audioCounter++;
                         break;
                     }
@@ -145,7 +148,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
                             relativeLayout.addView(image);
                         }
-                        applyView(element, slide, id);
+                        applyView(viewElement, slide, id);
                         imageCounter++;
                         break;
                     }
@@ -159,7 +162,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
                             relativeLayout.addView(text);
                         }
-                        applyView(element, slide, id);
+                        applyView(viewElement, slide, id);
                         textCounter++;
                         break;
                     }
@@ -175,7 +178,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
                             relativeLayout.addView(styledPlayerView);
                         }
-                        applyView(element, slide, id);
+                        applyView(viewElement, slide, id);
                         videoCounter++;
                         break;
                     }
@@ -193,7 +196,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
 
         setParameters(slide);
 
-        ArrayList<PresentationElement> shapes = new ArrayList<>();
+        ArrayList<ShapeElement> shapes = new ArrayList<>();
         iterateObjects(slide, shapes);
 
         slide.slideSpecifics(itemView, itemView.getContext());

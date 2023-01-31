@@ -33,11 +33,7 @@ public abstract class PresentationElement {
         this.x = x;
         this.y = y;
     }
-
-    abstract public void draw(Canvas canvas, Slide slide);
-
-    abstract public void applyView(View parent, ViewGroup container, Slide slide, int id);
-
+    
     abstract public String getViewType();
 
     abstract public String getSearchableContent();
