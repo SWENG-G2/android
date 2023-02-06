@@ -1,6 +1,5 @@
 package sweng.campusbirdsguide.presentation.elements;
 
-import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
@@ -21,15 +20,17 @@ public class TextElement extends PresentationElement implements ViewElement {
     private final String font;
     private final int fontSize;
     private final int color;
+    private final int timeOnScreen;
 
     @Setter
     private String content;
 
-    public TextElement(String font, int fontSize, int color, int x, int y) {
+    public TextElement(String font, int fontSize, int color, int x, int y, int timeOnScreen) {
         super(x, y);
         this.font = font;
         this.fontSize = fontSize;
         this.color = color;
+        this.timeOnScreen = timeOnScreen;
     }
 
     @Override
@@ -57,6 +58,9 @@ public class TextElement extends PresentationElement implements ViewElement {
             Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
             textView.setTypeface(typeface);
         }
+
+        if (timeOnScreen > 0)
+            textView.postDelayed(() -> textView.setVisibility(View.INVISIBLE), timeOnScreen);
 
         return textView;
     }
