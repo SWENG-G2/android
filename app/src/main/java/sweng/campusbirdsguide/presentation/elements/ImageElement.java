@@ -16,10 +16,10 @@ public class ImageElement extends PresentationElement implements ViewElement {
     private final int width;
     private final int height;
     private final int rotation;
-    private final int delay;
-    private final int timeOnScreen;
+    private final long delay;
+    private final long timeOnScreen;
 
-    public ImageElement(String url, int width, int height, int x, int y, int rotation, int delay, int timeOnScreen) {
+    public ImageElement(String url, int width, int height, int x, int y, int rotation, long delay, long timeOnScreen) {
         super(x, y);
         this.url = url;
         this.width = width;
@@ -29,7 +29,7 @@ public class ImageElement extends PresentationElement implements ViewElement {
         this.timeOnScreen = timeOnScreen;
     }
 
-    private void applyTimeOnScreen(int initialDelay, ImageView imageView) {
+    private void applyTimeOnScreen(long initialDelay, ImageView imageView) {
         new Handler().postDelayed(() -> imageView.setVisibility(View.INVISIBLE), initialDelay + timeOnScreen);
     }
 
@@ -42,11 +42,9 @@ public class ImageElement extends PresentationElement implements ViewElement {
             imageView.setVisibility(View.INVISIBLE);
 
             imageView.postDelayed(() -> imageView.setVisibility(View.VISIBLE), delay);
-
-            applyTimeOnScreen(delay, imageView);
-        } else {
-            applyTimeOnScreen(0, imageView);
         }
+        if (timeOnScreen > 0)
+            applyTimeOnScreen(Math.max(delay, 0), imageView);
 
         int xPos = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int yPos = dpToPx(y);

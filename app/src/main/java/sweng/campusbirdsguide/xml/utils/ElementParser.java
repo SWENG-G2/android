@@ -2,6 +2,12 @@ package sweng.campusbirdsguide.xml.utils;
 
 import android.graphics.Color;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public abstract class ElementParser {
     protected static final String NAME_SPACE = null;
 
@@ -16,6 +22,8 @@ public abstract class ElementParser {
     protected static final String RADIUS = "radius";
     protected static final String BORDER_WIDTH = "borderWidth";
     protected static final String BORDER_COLOUR = "borderColour";
+    protected static final String TIME_ON_SCREEN = "timeOnScreen";
+    protected static final String DELAY = "delay";
 
     private static final int EXPECTED_COLOUR_STRING_LENGTH = 9;
     // Colour string is #AARRGGBB according to standard
@@ -34,9 +42,32 @@ public abstract class ElementParser {
 
     protected static int parseInt(String stringValue) {
         try {
-            return Integer.parseInt(stringValue);
+            if (stringValue != null)
+                return Integer.parseInt(stringValue);
         } catch (NumberFormatException numberFormatException) {
-            return 0;
+            numberFormatException.printStackTrace();
         }
+        return 0;
+    }
+
+    protected static long parseTimeOnScreen(String stringValue) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss", Locale.UK);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            if (stringValue != null) {
+                Date date = simpleDateFormat.parse(stringValue);
+                if (date != null)
+                    return date.getTime();
+            }
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
+        }
+        return -1;
+    }
+
+    protected static int parseDelay(String stringValue) {
+        if (stringValue != null)
+            return parseInt(stringValue) * 1000;
+        return -1;
     }
 }

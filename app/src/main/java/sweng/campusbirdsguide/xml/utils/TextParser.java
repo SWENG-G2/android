@@ -13,9 +13,10 @@ public class TextParser extends ElementParser {
         int yCoordinate = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, Y_COORDINATE));
         int fontSize = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, FONT_SIZE));
         String font = xmlPullParser.getAttributeValue(NAME_SPACE, FONT_NAME);
+        long timeOnScreen = parseTimeOnScreen(xmlPullParser.getAttributeValue(NAME_SPACE, TIME_ON_SCREEN));
 
         int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));
 
-        return new TextElement(font, fontSize, colour, xCoordinate, yCoordinate);
+        return new TextElement(font, fontSize, colour, xCoordinate, yCoordinate, timeOnScreen);
     }
 }

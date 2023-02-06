@@ -20,12 +20,12 @@ public class TextElement extends PresentationElement implements ViewElement {
     private final String font;
     private final int fontSize;
     private final int color;
-    private final int timeOnScreen;
+    private final long timeOnScreen;
 
     @Setter
     private String content;
 
-    public TextElement(String font, int fontSize, int color, int x, int y, int timeOnScreen) {
+    public TextElement(String font, int fontSize, int color, int x, int y, long timeOnScreen) {
         super(x, y);
         this.font = font;
         this.fontSize = fontSize;
@@ -54,7 +54,7 @@ public class TextElement extends PresentationElement implements ViewElement {
         }
 
 
-        if (font.equals("mono")) {
+        if (font != null && font.equals("mono")) {
             Typeface typeface = ResourcesCompat.getFont(parent.getContext(), R.font.chivo_mono_regular);
             textView.setTypeface(typeface);
         }
