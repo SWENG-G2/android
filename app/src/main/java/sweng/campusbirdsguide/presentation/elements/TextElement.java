@@ -40,7 +40,6 @@ public class TextElement extends PresentationElement implements ViewElement {
     @Override
     public View applyView(View parent, ViewGroup container, Slide slide, int id) {
         TextView textView = parent.findViewById(id);
-        // Match parent to allow text to wrap
         RelativeLayout.LayoutParams layoutParams;
 
         int calculatedWidth;
@@ -55,7 +54,7 @@ public class TextElement extends PresentationElement implements ViewElement {
 
         if (height > 0)
             calculatedHeight = dpToPx(height);
-        else if (width == MATCH_PARENT)
+        else if (height == MATCH_PARENT)
             calculatedHeight = RelativeLayout.LayoutParams.MATCH_PARENT;
         else
             calculatedHeight = RelativeLayout.LayoutParams.WRAP_CONTENT;
@@ -73,7 +72,7 @@ public class TextElement extends PresentationElement implements ViewElement {
         textView.setTextColor(color);
         textView.setLayoutParams(layoutParams);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_NONE);
+            textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
 
 
