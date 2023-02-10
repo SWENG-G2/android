@@ -21,23 +21,46 @@ public class TextElement extends PresentationElement implements ViewElement {
     private final int fontSize;
     private final int color;
     private final long timeOnScreen;
+    private final int width;
+    private final int height;
 
     @Setter
     private String content;
 
-    public TextElement(String font, int fontSize, int color, int x, int y, long timeOnScreen) {
+    public TextElement(String font, int fontSize, int color, int x, int y, int width, int height, long timeOnScreen) {
         super(x, y);
         this.font = font;
         this.fontSize = fontSize;
         this.color = color;
         this.timeOnScreen = timeOnScreen;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     public View applyView(View parent, ViewGroup container, Slide slide, int id) {
         TextView textView = parent.findViewById(id);
         // Match parent to allow text to wrap
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams layoutParams;
+
+        int calculatedWidth;
+        int calculatedHeight;
+
+        if (width > 0)
+            calculatedWidth = Math.round((width * slide.getCalculatedWidth()) / (float) slide.getWidth());
+        else if (width == MATCH_PARENT)
+            calculatedWidth = RelativeLayout.LayoutParams.MATCH_PARENT;
+        else
+            calculatedWidth = RelativeLayout.LayoutParams.WRAP_CONTENT;
+
+        if (height > 0)
+            calculatedHeight = dpToPx(height);
+        else if (width == MATCH_PARENT)
+            calculatedHeight = RelativeLayout.LayoutParams.MATCH_PARENT;
+        else
+            calculatedHeight = RelativeLayout.LayoutParams.WRAP_CONTENT;
+
+        layoutParams = new RelativeLayout.LayoutParams(calculatedWidth, calculatedHeight);
 
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
         float yPos = dpToPx(y);
