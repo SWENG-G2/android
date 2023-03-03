@@ -8,7 +8,18 @@ import androidx.core.content.ContextCompat;
 
 import sweng.campusbirdsguide.R;
 
+/**
+ * <code>BirdSlide</code> is the slide to be used in a Campus presentation, where all birds are
+ * listed.
+ */
 public class BirdSlide extends AbstractSlide {
+    /**
+     * <code>BirdSlide</code> constructor.
+     *
+     * @param width  The slide's width.
+     * @param height The slide's height.
+     * @param title  The slide's title.
+     */
     public BirdSlide(int width, int height, String title) {
         super(width, height, title);
 
@@ -18,6 +29,7 @@ public class BirdSlide extends AbstractSlide {
 
     @Override
     public void slideSpecifics(View containerView, Context context) {
+        // Set slide background
         containerView.setBackground(ContextCompat.getDrawable(context, R.drawable.slide_bg));
     }
 }

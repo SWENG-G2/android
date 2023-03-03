@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-
+/**
+ * <code>LineElement</code> implements the line presentation element with behaviour respectful
+ * of SWENG standard v3.
+ */
 public class LineElement extends PresentationElement implements ShapeElement {
     private final int thickness;
     private final int fromX;
@@ -16,6 +19,15 @@ public class LineElement extends PresentationElement implements ShapeElement {
     private final int toY;
     private final int colour;
 
+    /**
+     * <code>LineElement</code> constructor.
+     * @param thickness Line thickness in DP.
+     * @param fromX Point 1 X in slide coordinates.
+     * @param fromY Point 1 Y in slide coordinates.
+     * @param toX Point 2 X in slide coordinates.
+     * @param toY Point 2 X in slide coordinate.
+     * @param colour Line colour.
+     */
     public LineElement(int thickness, int fromX, int fromY, int toX, int toY, int colour) {
         // Line doesn't have x and y
         super(0, 0);
@@ -34,6 +46,7 @@ public class LineElement extends PresentationElement implements ShapeElement {
         paint.setColor(colour);
         paint.setStrokeWidth(thickness);
 
+        // Map coordinates
         float startX = (fromX * canvas.getWidth()) / (float) slide.getWidth();
         float endX = (toX * canvas.getWidth()) / (float) slide.getWidth();
         float startY = dpToPx(fromY);
