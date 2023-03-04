@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * <code>MainActivityLifecycleObserver</code> is a DefaultLifecycleObserver used to load XML files
+ * from storage.
+ */
 public class MainActivityLifecycleObserver implements DefaultLifecycleObserver {
     private static final String LOAD_BIRD_FROM_STORAGE = "loadBirdFromStorage";
 
@@ -29,13 +33,19 @@ public class MainActivityLifecycleObserver implements DefaultLifecycleObserver {
         this.activity = activity;
     }
 
+    /**
+     * Reads and parses the file from URI and starts a BirdActivity to display the information.
+     *
+     * @param xmlURI The URI.
+     */
     private void displayXMLFromUri(Uri xmlURI) {
         StringBuilder xmlBuilder = new StringBuilder();
         String xml = null;
         try {
+            // Load file
             InputStream inputStream = activity.getContentResolver().openInputStream(xmlURI);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            while (bufferedReader.ready()) {
+            while (bufferedReader.ready()) { // Create string content
                 xmlBuilder.append(bufferedReader.readLine());
             }
 
@@ -45,6 +55,7 @@ public class MainActivityLifecycleObserver implements DefaultLifecycleObserver {
             e.printStackTrace();
         }
 
+        // Send xml content to bird activity
         if (xml != null && xml.length() > 0) {
             Intent birdIntent = new Intent(activity.getApplicationContext(), BirdActivity.class);
             birdIntent.putExtra("birdXML", xml);
@@ -60,9 +71,13 @@ public class MainActivityLifecycleObserver implements DefaultLifecycleObserver {
     public void onCreate(@NonNull LifecycleOwner owner) {
         DefaultLifecycleObserver.super.onCreate(owner);
 
+        // Register on file selected callback
         activityResultLauncher = activityResultRegistry.register(LOAD_BIRD_FROM_STORAGE, owner, new ActivityResultContracts.GetContent(), this::displayXMLFromUri);
     }
 
+    /**
+     * Launches the file picker to load an XML from storage.
+     */
     public void loadBirdFromStorage() {
         activityResultLauncher.launch("text/xml");
     }

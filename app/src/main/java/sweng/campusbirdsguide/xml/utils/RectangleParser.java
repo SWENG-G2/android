@@ -4,7 +4,17 @@ import org.xmlpull.v1.XmlPullParser;
 
 import sweng.campusbirdsguide.presentation.elements.RectangleElement;
 
+/**
+ * <code>RectangleParser</code> is a utility class used to parse rectangle elements from
+ * presentation.
+ */
 public class RectangleParser extends ElementParser {
+    /**
+     * Parses a rectangle element from an {@link XmlPullParser} at the right position.
+     *
+     * @param xmlPullParser The XmlPullParser.
+     * @return A set-up {@link RectangleElement} with fallback default values.
+     */
     public static RectangleElement parseRectangle(XmlPullParser xmlPullParser) {
         int width = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, WIDTH));
         int height = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, HEIGHT));

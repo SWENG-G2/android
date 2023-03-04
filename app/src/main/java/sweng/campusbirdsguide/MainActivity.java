@@ -45,10 +45,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private SlidesRecyclerViewAdapter slidesRecyclerViewAdapter;
     private MainActivityLifecycleObserver mainActivityLifecycleObserver;
 
+    /**
+     * Fetches the birds for the selected campus.
+     */
     private void fetchBirds() {
         RequestMaker requestMaker = new RequestMaker(getApplicationContext());
 
         String birdsUrl = getString(R.string.serverURL) + String.format(Locale.UK, getString(R.string.birdsList), campusId);
+        // Network request
         requestMaker.query(birdsUrl, new Result() {
             @Override
             public void onSuccess(String response) {
@@ -76,9 +80,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         mainActivity = findViewById(R.id.main_activity);
 
+        // Register lifecycle observer
         mainActivityLifecycleObserver = new MainActivityLifecycleObserver(getActivityResultRegistry(), this);
         getLifecycle().addObserver(mainActivityLifecycleObserver);
 
+        // Set up FAB
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
 
@@ -160,10 +166,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab) {
-//            Intent loadBirdIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//            loadBirdIntent.addCategory(Intent.CATEGORY_OPENABLE);
-//            loadBirdIntent.setType("application/xml");
-
             mainActivityLifecycleObserver.loadBirdFromStorage();
         }
     }
