@@ -11,12 +11,6 @@ import com.bumptech.glide.Glide;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>ImageElement</code> implements the image presentation element with behaviour respectful
- * of SWENG standard v3.
- *
- * This is a contracted, I realise midway. No need to write tests or anything so no need for comments
- */
 public class ImageElement extends PresentationElement implements ViewElement {
     private final String url;
     private final int width;
@@ -25,17 +19,6 @@ public class ImageElement extends PresentationElement implements ViewElement {
     private final long delay;
     private final long timeOnScreen;
 
-    /**
-     * <code>ImageElement</code> constructor.
-     * @param url URL to the image resource.
-     * @param width Image width in presentation units.
-     * @param height Image height in presentation units.
-     * @param x X coordinate on slide.
-     * @param y Y coordinate on slide.
-     * @param rotation
-     * @param delay
-     * @param timeOnScreen
-     */
     public ImageElement(String url, int width, int height, int x, int y, int rotation, long delay, long timeOnScreen) {
         super(x, y);
         this.url = url;

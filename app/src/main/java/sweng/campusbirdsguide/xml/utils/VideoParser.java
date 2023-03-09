@@ -4,17 +4,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import sweng.campusbirdsguide.presentation.elements.VideoElement;
 
-/**
- * <code>VideoParser</code> is a utility class used to parse video elements from presentation.
- */
 public class VideoParser extends ElementParser {
-
-    /**
-     * Parses a video element from an {@link XmlPullParser} at the right position.
-     *
-     * @param xmlPullParser The XmlPullParser.
-     * @return A set-up {@link VideoElement} with fallback default values.
-     */
     public static VideoElement parseVideo(XmlPullParser xmlPullParser) {
         String url = xmlPullParser.getAttributeValue(NAME_SPACE, URL);
         int width = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, WIDTH));

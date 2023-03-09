@@ -4,16 +4,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import sweng.campusbirdsguide.presentation.elements.CircleElement;
 
-/**
- * <code>CircleParser</code> is a utility class used to parse circle elements from presentation.
- */
 public class CircleParser extends ElementParser {
-    /**
-     * Parses a circle element from an {@link XmlPullParser} at the right position.
-     *
-     * @param xmlPullParser The XmlPullParser.
-     * @return A set-up {@link CircleElement} with fallback default values.
-     */
     public static CircleElement parseCircle(XmlPullParser xmlPullParser) {
         int radius = parseInt(xmlPullParser.getAttributeValue(NAME_SPACE, RADIUS));
         int colour = parseColour(xmlPullParser.getAttributeValue(NAME_SPACE, COLOUR));

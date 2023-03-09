@@ -2,29 +2,17 @@ package sweng.campusbirdsguide.presentation.elements;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.View;
+import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>CircleElement</code> implements the circle presentation element with behaviour respectful
- * of SWENG standard v3.
- */
 public class CircleElement extends PresentationElement implements ShapeElement {
     private final int radius;
     private final int colour;
     private final int borderWidth;
     private final int borderColour;
 
-    /**
-     * <code>CircleElement</code> constructor.
-     *
-     * @param radius       The circle's radius in presentation units.
-     * @param colour       Fill colour.
-     * @param borderWidth  Border width, in presentation units.
-     * @param borderColour Border colour.
-     * @param x            X coordinate on slide.
-     * @param y            Y coordinate on slide.
-     */
     public CircleElement(int radius, int colour, int borderWidth, int borderColour, int x, int y) {
         super(x, y);
         this.radius = radius;
@@ -35,7 +23,6 @@ public class CircleElement extends PresentationElement implements ShapeElement {
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
-        // Map screen position
         int cx = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int cy;
 
@@ -57,17 +44,14 @@ public class CircleElement extends PresentationElement implements ShapeElement {
             cy = dpToPx(y);
 
 
-        // Set up paint object
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        // Border
         paint.setColor(borderColour);
         paint.setStrokeWidth(border);
         paint.setStyle(Paint.Style.STROKE);
 
         canvas.drawCircle(cx, cy, calculatedRadius, paint);
 
-        // Circle
         paint.setColor(colour);
         paint.setStyle(Paint.Style.FILL);
 

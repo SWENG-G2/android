@@ -8,10 +8,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * <code>ElementParser</code> is an abstract class which provides base methods and constants
- * to parse elements from presentaton.
- */
 public abstract class ElementParser {
     protected static final String NAME_SPACE = null;
 
@@ -35,12 +31,6 @@ public abstract class ElementParser {
     private static final int RGB_START_STRING_INDEX = 1;
 
 
-    /**
-     * Parser a colour string.
-     *
-     * @param colour The colour string.
-     * @return {@link Color}
-     */
     protected static int parseColour(String colour) {
         if (colour != null && colour.length() == EXPECTED_COLOUR_STRING_LENGTH) {
             String formattedColour = "#" + colour.substring(ALPHA_START_STRING_INDEX)
@@ -50,12 +40,6 @@ public abstract class ElementParser {
         return Color.TRANSPARENT;
     }
 
-    /**
-     * Parser an integer string.
-     *
-     * @param stringValue The integer string.
-     * @return The integer value.
-     */
     protected static int parseInt(String stringValue) {
         try {
             if (stringValue != null)
@@ -66,12 +50,6 @@ public abstract class ElementParser {
         return 0;
     }
 
-    /**
-     * Parses a timestamp.
-     *
-     * @param stringValue The timestamp string.
-     * @return The timestamp value in milliseconds or -1.
-     */
     protected static long parseTimeOnScreen(String stringValue) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss", Locale.UK);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -87,12 +65,6 @@ public abstract class ElementParser {
         return -1;
     }
 
-    /**
-     * Parses a delay string.
-     *
-     * @param stringValue The delay string.
-     * @return The delay in milliseconds or -1.
-     */
     protected static int parseDelay(String stringValue) {
         if (stringValue != null)
             return parseInt(stringValue) * 1000;

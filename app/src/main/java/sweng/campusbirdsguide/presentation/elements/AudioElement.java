@@ -1,5 +1,6 @@
 package sweng.campusbirdsguide.presentation.elements;
 
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -16,24 +17,12 @@ import java.io.IOException;
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>AudioElement</code> implements the audio presentation element with behaviour respectful of
- * SWENG standard v3.
- */
 public class AudioElement extends PresentationElement implements View.OnClickListener, ViewElement {
     private static final int DP_SIZE = 100;
     private final String url;
     private final boolean loop;
     private MediaPlayer mediaPlayer;
 
-    /**
-     * <code>AudioElement</code> constructor.
-     *
-     * @param url  URL to the audio resource.
-     * @param loop Whether the resource should be played in a loop.
-     * @param x    X coordinate on slide.
-     * @param y    Y coordinate on slide.
-     */
     public AudioElement(String url, boolean loop, int x, int y) {
         super(x, y);
         this.url = url;
@@ -45,25 +34,20 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         ImageButton button = parent.findViewById(id);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        // Map screen position
         float xPos = (x * slide.getCalculatedWidth()) / (float) slide.getWidth();
         float yPos = dpToPx(y);
 
-        // Load play icon
         Drawable icon = ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_bird);
         button.setBackground(icon);
 
-        // Set layout rules
         if (noHorizontalLayoutRulesToApply(layoutParams))
             layoutParams.leftMargin = Math.round(xPos);
         layoutParams.topMargin = Math.round(yPos);
 
-        // Map size on screen
         int size = dpToPx(DP_SIZE);
         layoutParams.width = size;
         layoutParams.height = size;
 
-        // Apply layout params
         button.setLayoutParams(layoutParams);
 
         button.setOnClickListener(this);
@@ -76,7 +60,6 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
-                // Pause and seek to 0 when view leaves screen
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     mediaPlayer.seekTo(0);
@@ -97,20 +80,14 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
         return null;
     }
 
-    /**
-     * Sets up the media player object with the required parameters.
-     *
-     * @param container {@link ViewGroup} containing the view.
-     */
     private void setUpMediaPlayer(ViewGroup container) {
-        // Create media player
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA).build());
 
-        // TODO: remove this as server should provide full url
+
         String serverURL = container.getContext().getString(R.string.serverURL);
 
         // Prepare media player in the background
@@ -137,7 +114,6 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
-                // Release mediaplayer when container leaves the screen
                 if (mediaPlayer != null) {
                     mediaPlayer.release();
                 }

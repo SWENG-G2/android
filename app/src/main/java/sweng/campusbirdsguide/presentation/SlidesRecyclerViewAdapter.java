@@ -12,29 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import sweng.campusbirdsguide.R;
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>SlidesRecyclerViewAdapter</code> is the {@link RecyclerView.Adapter} to be used when
- * displaying slides in a list.
- */
 public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHolder> implements Filterable {
     private final List<Slide> initialSlides;
     private final ListItemClickListener listItemClickListener;
     private final int horizontalMargin;
     private List<Slide> slides;
 
-    /**
-     * <code>SlidesRecyclerViewAdapter</code> constructor.
-     *
-     * @param slides                The List of slides contained in the presentation.
-     * @param listItemClickListener Listener callback for item click.
-     * @param horizontalMargin      Horizontal margin for the slides.
-     */
     public SlidesRecyclerViewAdapter(List<Slide> slides, ListItemClickListener listItemClickListener, int horizontalMargin) {
         this.slides = slides;
         this.initialSlides = slides;
@@ -57,8 +47,8 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
 
     @Override
     public void onBindViewHolder(@NonNull SlideViewHolder holder, int position) {
-        // Draw slide content when view is drawn
         holder.draw(slides.get(position));
+        System.out.println("BIND " + slides.get(position).getTitle());
     }
 
     @Override
@@ -80,20 +70,17 @@ public class SlidesRecyclerViewAdapter extends RecyclerView.Adapter<SlideViewHol
                 FilterResults filterResults = new FilterResults();
                 List<Slide> filteredSlides = new ArrayList<>();
 
-                // Empty query
                 if (constraint.length() == 0)
                     return null;
 
                 String lowercaseConstraint = constraint.toString().toLowerCase();
 
                 for (Slide slide : initialSlides) {
-                    // Filter by slide title
                     if (slide.getTitle().toLowerCase().contains(lowercaseConstraint)) {
                         filteredSlides.add(slide);
                         break;
                     }
 
-                    // Filter by presentation elements content within slide
                     for (PresentationElement element : slide.getElements()) {
                         String searchableContent = element.getSearchableContent();
                         if (searchableContent != null && searchableContent.contains(lowercaseConstraint)) {

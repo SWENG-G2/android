@@ -25,9 +25,6 @@ import sweng.campusbirdsguide.presentation.elements.ViewElement;
 import sweng.campusbirdsguide.utils.ListItemClickListener;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>SlideViewHolder</code> is the view holder for slides displayed on screen.
- */
 public class SlideViewHolder extends RecyclerView.ViewHolder {
     private final View itemView;
     private final ViewGroup container;
@@ -45,14 +42,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
     private static final int VIDEO_BASE_ID = 6000;
     private static final int CANVAS_ID = 7000;
 
-    /**
-     * <code>SlideViewHolder</code> constructor.
-     *
-     * @param itemView              The view representing the slide.
-     * @param container             The ViewGroup containing the itemView.
-     * @param listItemClickListener Listener callback for item click.
-     * @param horizontalMargin      Horizontal margin for the slide.
-     */
     public SlideViewHolder(@NonNull View itemView, ViewGroup container, ListItemClickListener listItemClickListener, int horizontalMargin) {
         super(itemView);
 
@@ -60,7 +49,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         this.container = container;
         this.listItemClickListener = listItemClickListener;
 
-        this.relativeLayout = itemView.findViewById(R.id.slide);
+        relativeLayout = itemView.findViewById(R.id.slide);
         this.horizontalMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, horizontalMargin, itemView.getContext().getResources().getDisplayMetrics()));
 
         this.audioElementIds = new ArrayList<>();
@@ -69,12 +58,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         this.videoElementIds = new ArrayList<>();
     }
 
-    /**
-     * Sets the layout parameters for the itemView.
-     *
-     * @param slide The slide to be drawn.
-     */
-    private void setLayoutParameters(Slide slide) {
+    private void setParameters(Slide slide) {
         int slideType = slide.getType();
         int calculatedHeight = slide.getCalculatedHeight();
         if (slideType == Slide.STANDARD_TYPE) {
@@ -111,13 +95,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * This method checks if an ID can be reused. i.e. data changes in the view holder.
-     *
-     * @param ids     The ArrayList of IDs to inspect for duplicates
-     * @param counter The ID counter used to index the list.
-     * @return -1 if the ID cannot be reused or the ID to be resused.
-     */
     private int canReplace(ArrayList<Integer> ids, int counter) {
         try {
             return ids.get(counter);
@@ -126,25 +103,10 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * Shorthand to invoke an element's applyView method.
-     *
-     * @param element The element.
-     * @param slide   The slide the element lives in.
-     * @param id      The ID the element should use for is view.
-     */
     private void applyView(ViewElement element, Slide slide, int id) {
         element.applyView(relativeLayout, container, slide, id);
     }
 
-    /**
-     * Adds the element's type base ID to the counter value.
-     *
-     * @param counter The counter.
-     * @param list    The ArrayList storing the element's type IDs.
-     * @param baseId  The base ID to use.
-     * @return The adjusted ID.
-     */
     private int adjustId(int counter, ArrayList<Integer> list, int baseId) {
         int id = counter + baseId;
         list.add(id);
@@ -152,14 +114,7 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         return id;
     }
 
-    /**
-     * This method calculates the required ids and adds each (view) element to the slide.
-     *
-     * @param slide  The slide to be drawn.
-     * @param shapes An ArrayList where discovered shapes should be added.
-     */
     private void iterateObjects(Slide slide, ArrayList<ShapeElement> shapes) {
-        // ID counters
         int audioCounter = 0;
         int imageCounter = 0;
         int textCounter = 0;
@@ -234,22 +189,16 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * Lays views and draws shape withing the slide.
-     *
-     * @param slide The slide to draw.
-     */
     public void draw(Slide slide) {
         if (listItemClickListener != null) {
             itemView.setOnClickListener(view -> listItemClickListener.onItemClick(slide.getId()));
         }
 
-        setLayoutParameters(slide);
+        setParameters(slide);
 
         ArrayList<ShapeElement> shapes = new ArrayList<>();
         iterateObjects(slide, shapes);
 
-        // Different slide types need different specific operations
         slide.slideSpecifics(itemView, itemView.getContext());
 
         relativeLayout.requestLayout();
@@ -257,7 +206,6 @@ public class SlideViewHolder extends RecyclerView.ViewHolder {
         relativeLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                // Draw shapes on canvas when view is drawn (size has been calculated)
                 CanvasView canvas = relativeLayout.findViewById(CANVAS_ID);
                 if (canvas == null) {
                     canvas = new CanvasView(relativeLayout.getContext());

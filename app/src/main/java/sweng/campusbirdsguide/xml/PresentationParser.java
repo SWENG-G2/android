@@ -21,9 +21,7 @@ import sweng.campusbirdsguide.xml.utils.RectangleParser;
 import sweng.campusbirdsguide.xml.utils.TextParser;
 import sweng.campusbirdsguide.xml.utils.VideoParser;
 
-/**
- * <code>PresentationParsers</code> provides an high level interface to parse a presentation.
- */
+
 public class PresentationParser {
     private static final String NAME_SPACE = null;
 
@@ -43,18 +41,9 @@ public class PresentationParser {
     private static final String VIDEO = "video";
 
 
-    /**
-     * Iterates through each tag in the presentation and extracts the relevant data.
-     * @param xmlPullParser The xmlPullParser which loaded the presentation.
-     * @param slideType The type of slide to use.
-     * @return A list containing the slides in the presentation.
-     * @throws XmlPullParserException
-     * @throws IOException
-     */
     private List<Slide> parsePresentation(XmlPullParser xmlPullParser, String slideType) throws XmlPullParserException, IOException {
         List<Slide> slides = new ArrayList<>();
 
-        // Slide we currently operate on
         Slide workingSlide = null;
         TextElement text = null;
 
@@ -137,14 +126,6 @@ public class PresentationParser {
         return slides;
     }
 
-    /**
-     * Parses a presentation.
-     * @param input The XML presentation as string.
-     * @param slideType The type of slide to use.
-     * @return A list containing the slides in the presentation.
-     * @throws XmlPullParserException
-     * @throws IOException
-     */
     public List<Slide> parse(String input, String slideType) throws XmlPullParserException, IOException {
         XmlPullParser xmlPullParser = Xml.newPullParser();
         xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);

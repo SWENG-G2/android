@@ -10,12 +10,10 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import lombok.Setter;
+import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 import sweng.campusbirdsguide.presentation.elements.ShapeElement;
 import sweng.campusbirdsguide.xml.slide.Slide;
 
-/**
- * <code>CanvasView</code> is a simple view used as canvas in presentations.
- */
 public class CanvasView extends View {
 
     @Setter
@@ -40,7 +38,6 @@ public class CanvasView extends View {
         super.onDraw(canvas);
 
         if (slide != null && shapes != null) {
-            // Draw every shape in slide
             for (ShapeElement element : shapes) {
                 element.draw(canvas, slide);
             }
