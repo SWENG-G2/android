@@ -42,7 +42,7 @@ public class AboutUsActivity extends AppCompatActivity {
         licensingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // When the user selects an option to see the licenses:
+                // When the user clicks the button to see the licenses:
                 startActivity(new Intent(view.getContext(), OssLicensesMenuActivity.class));
             }
         });
@@ -51,7 +51,7 @@ public class AboutUsActivity extends AppCompatActivity {
         usageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // When the user selects an option to see the licenses:
+                // When the user clicks the button to see 'how to use the app' page:
                 startActivity(new Intent(view.getContext(), AboutUsUsageActivity.class));
             }
         });
@@ -60,7 +60,7 @@ public class AboutUsActivity extends AppCompatActivity {
         creatorsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // When the user selects an option to see the licenses:
+                // When the user clicks button to see the 'about the creators' page:
                 startActivity(new Intent(view.getContext(), AboutUsCreatorsActivity.class));
             }
         });
