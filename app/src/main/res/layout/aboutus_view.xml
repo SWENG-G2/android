@@ -35,7 +35,7 @@
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fauna Finder"
+                android:text="@string/app_name"
                 android:textColor="?attr/colorOnSecondary"
                 android:layout_gravity="center_horizontal" />
 
@@ -43,7 +43,7 @@
                 android:id="@+id/appVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Version 1.0.0"
+                android:text="@string/version_1_0_0"
                 android:textColor="?attr/colorOnSecondary"
                 android:layout_gravity="center_horizontal" />
 
@@ -73,7 +73,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="© 2023 Penelope LTD"
+        android:text="@string/_2023_penelope_ltd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -91,7 +92,7 @@
         android:id="@+id/creators_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About the creators"
+        android:text="@string/about_the_creators"
         android:textAlignment="textStart"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -103,7 +104,7 @@
         android:id="@+id/usage_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How to use the app"
+        android:text="@string/how_to_use_the_app"
         android:textAlignment="textStart"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -115,7 +116,7 @@
         android:id="@+id/licensing_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Licensing"
+        android:text="@string/licensing"
         android:textAlignment="textStart"
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="30dp"

@@ -1,4 +1,7 @@
 <resources>
+    <!-- General -->
+    <string name="app_name">Fauna Finder</string>
+
     <!-- Private -->
     <string name="campusConfiguration" translatable="false">campusConfiguration</string>
     <string name="campusId" translatable="false">campusId</string>
@@ -7,7 +10,6 @@
     <string name="birdsList" translatable="false">campus/%d</string>
 
     <!-- Main activity -->
-    <string name="app_name">Campus Birds Guide</string>
     <string name="home_title">Home</string>
     <string name="action_about">About the app</string>
 
@@ -22,4 +24,24 @@
     <!-- Bird detail -->
     <string name="expand_section">Expand section</string>
     <string name="play_pause">Play/Pause Button</string>
+
+
+    <!-- About us -->
+    <string name="aboutCreatorsText">
+    <![CDATA[
+Penelope was founded in the UK at the University of York in late 2022. The organisation was built from the ground up by students, focused on providing high-quality android applications to the local community and beyond.
+
+Here at Penelope, we utilise effective project management strategies that facilitate innovation and communication in the work environment. Striving to provide staff constant self-improvement, and customers with a high-quality product that our employees are proud of.
+
+Penelope was founded with the vision to enable “secure and easy access to information anytime, anywhere”. The aim is to provide the users with robust, comfortable and easy-to-use systems which not only appeal but inform the user.
+
+    ]]>
+</string>
+    <string name="version_1_0_0">Version 1.0.0</string>
+    <string name="licensing">Licensing</string>
+    <string name="how_to_use_the_app">How to use the app</string>
+    <string name="about_the_creators">About the creators</string>
+    <string name="_2023_penelope_ltd">© 2023 Penelope LTD</string>
+    <string name="logo">logo</string>
+
 </resources>
