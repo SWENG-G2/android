@@ -39,13 +39,17 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="389dp"
         android:layout_height="650dp"
+        android:scrollbars="horizontal"
+        android:scrollbarStyle="outsideOverlay"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -59,14 +63,18 @@
                     android:layout_width="399dp"
                     android:layout_height="549dp"
 
-                    android:src="@drawable/main_empty" />
+                    android:src="@drawable/main_empty"
+                    android:contentDescription="@string/main_empty_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text_main"
-                    android:layout_width="337dp"
+                    android:layout_width="361dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/main_empty_usage" />
 
 
             </LinearLayout>
@@ -80,14 +88,18 @@
                     android:id="@+id/screenshot_image_campus"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/campus" />
+                    android:src="@drawable/campus"
+                    android:contentDescription="@string/campus_selection_page_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text_campus"
-                    android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_width="367dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/campus_select_usage" />
 
 
             </LinearLayout>
@@ -101,14 +113,18 @@
                     android:id="@+id/screenshot_image_bird"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/main" />
+                    android:src="@drawable/main"
+                    android:contentDescription="@string/bird_selection_page_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text_bird"
                     android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/bird_selection_usage" />
 
 
             </LinearLayout>
@@ -122,14 +138,18 @@
                     android:id="@+id/screenshot_image_info1"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/detail" />
+                    android:src="@drawable/detail"
+                    android:contentDescription="@string/bird_info_page1_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text_info1"
                     android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/info_pages1" />
 
 
             </LinearLayout>
@@ -143,14 +163,18 @@
                     android:id="@+id/screenshot_image_info2"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/detail1" />
+                    android:src="@drawable/detail1"
+                    android:contentDescription="@string/about_me_info_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text_info2"
                     android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/about_me_info" />
 
 
             </LinearLayout>
@@ -164,41 +188,47 @@
                     android:id="@+id/screenshot_image_info3"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/detail2" />
+                    android:src="@drawable/detail2"
+                    android:contentDescription="@string/diet_info_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_info3"
                     android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/Diet_info" />
 
 
             </LinearLayout>
-
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </LinearLayout>
-
-                <ImageView
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <ImageView
                     android:id="@+id/screenshot_image2"
                     android:layout_width="384dp"
                     android:layout_height="549dp"
-                    android:src="@drawable/detail3" />
+                    android:src="@drawable/detail3"
+                android:contentDescription="@string/location_info_screenshot_content_description" />
 
                 <TextView
                     android:id="@+id/screenshot_text2"
                     android:layout_width="337dp"
-                    android:layout_height="110dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tap the button to start the app" />
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/location_info" />
 
-
+            </LinearLayout>
             </LinearLayout>
 
     </HorizontalScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
