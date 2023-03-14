@@ -41,6 +41,7 @@
         android:layout_height="319dp"
         android:layout_marginTop="8dp"
         android:text="@string/aboutCreatorsText"
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
