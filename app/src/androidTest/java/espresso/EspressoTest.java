@@ -27,6 +27,20 @@ public class EspressoTest {
     public void isToolbarDisplayedAtTopOfScreen()
     {
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-        onView(withId(R.id.toolbar)).check(isTopAlignedWith(withId(R.id.toolbar)));
+        onView(withId(R.id.toolbar)).check(isTopAlignedWith(withId(R.id.aboutus_view_activity)));
     }
+    @Test
+    public void isAppNameDisplayedTopOfToolbar()
+    {
+        onView(withText("Fauna Finder")).check(matches(isDisplayed()));
+        onView(withText("Fauna Finder")).check(isTopAlignedWith(withId(R.id.toolbar)));
+    }
+    @Test
+    public void isAppVersionDisplayedBelowAppName()
+    {
+        onView(withText("Version 1.0.0")).check(matches(isDisplayed()));
+        onView(withText("Version 1.0.0")).check(isCompletelyBelow(withText("Fauna Finder")));
+    }
+
 }
+
