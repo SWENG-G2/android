@@ -39,10 +39,6 @@ public class EspressoTest {
     public ActivityScenarioRule<AboutUsActivity> activityRule =
             new ActivityScenarioRule<AboutUsActivity>(AboutUsActivity.class);
 
-//    @Rule
-//    public IntentsTestRule<AboutUsActivity> intentsTestRule =
-//            new IntentsTestRule<>(AboutUsActivity.class);
-
     @Before
     public void init() {
         Intents.init();
