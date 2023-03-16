@@ -1,15 +1,23 @@
-package espresso;
+package sweng.campusbirdsguide;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.assertion.PositionAssertions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
+import android.content.Intent;
+
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.intent.matcher.IntentMatchers;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+
+import com.google.android.gms.oss.licenses.OssLicensesActivity;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 import sweng.campusbirdsguide.AboutUsActivity;
 import sweng.campusbirdsguide.AboutUsCreatorsActivity;
@@ -17,6 +25,9 @@ import sweng.campusbirdsguide.AboutUsUsageActivity;
 
 import sweng.campusbirdsguide.R;
 
+import org.hamcrest.Matcher;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +39,18 @@ public class EspressoTest {
     public ActivityScenarioRule<AboutUsActivity> activityRule =
             new ActivityScenarioRule<AboutUsActivity>(AboutUsActivity.class);
 
+//    @Rule
+//    public IntentsTestRule<AboutUsActivity> intentsTestRule =
+//            new IntentsTestRule<>(AboutUsActivity.class);
+
+    @Before
+    public void init() {
+        Intents.init();
+    }
+    @After
+    public void cleanUp() {
+        Intents.release();
+    }
     @Test
     public void toolbarDisplayedAtTopOfScreen()
     {
@@ -79,17 +102,24 @@ public class EspressoTest {
         onView(withText("© 2023 Penelope LTD")).check(matches(isDisplayed()));
         onView(withText("© 2023 Penelope LTD")).check(isCompletelyBelow(withText("Licensing")));
     }
-    @Test
-    public void creatorsButtonTakesYouToCreatorsPage()
-    {
-        onView(withId(R.id.creators_btn)).perform(ViewActions.click());
-        onView(withId(R.id.aboutus_creators_activity)).check(matches(isDisplayed()));
-    }
+
     @Test
     public void usageButtonTakesYouToUsagePage()
     {
         onView(withId(R.id.usage_btn)).perform(ViewActions.click());
-        onView(withId(R.id.aboutus_usage_activity)).check(matches(isDisplayed()));
+        Intents.intended(IntentMatchers.hasComponent(AboutUsUsageActivity.class.getName()));
+    }
+    @Test
+    public void creatorsButtonTakesYouToCreatorsPage()
+    {
+        onView(withId(R.id.creators_btn)).perform(ViewActions.click());
+        Intents.intended(IntentMatchers.hasComponent(AboutUsCreatorsActivity.class.getName()));
+    }
+    @Test
+    public void licensesButtonTakesYouToLicensesPage()
+    {
+        onView(withId(R.id.licensing_btn)).perform(ViewActions.click());
+        Intents.intended(IntentMatchers.hasComponent(OssLicensesMenuActivity.class.getName()));
     }
 }
 
