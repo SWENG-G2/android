@@ -35,18 +35,27 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="381dp"
-        android:layout_height="319dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/aboutCreatorsText"
-        android:justificationMode="inter_word"
+    <ImageView
+        android:src="@drawable/penelope_logo_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/aboutCreatorsText"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        tools:layout_editor_absoluteX="15dp" />
 
     <TextView
         android:id="@+id/textView"
