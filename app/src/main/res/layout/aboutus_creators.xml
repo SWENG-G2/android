@@ -36,6 +36,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
+        android:id="@+id/penelopeLogo"
         android:src="@drawable/penelope_logo_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

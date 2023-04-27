@@ -5,27 +5,15 @@ import static androidx.test.espresso.assertion.PositionAssertions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-import android.content.Intent;
-
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.matcher.IntentMatchers;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
-import com.google.android.gms.oss.licenses.OssLicensesActivity;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
-import sweng.campusbirdsguide.AboutUsActivity;
-import sweng.campusbirdsguide.AboutUsCreatorsActivity;
-import sweng.campusbirdsguide.AboutUsUsageActivity;
-
-import sweng.campusbirdsguide.R;
-
-import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,7 +22,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class EspressoTest {
+public class AboutUsViewTest {
     @Rule
     public ActivityScenarioRule<AboutUsActivity> activityRule =
             new ActivityScenarioRule<AboutUsActivity>(AboutUsActivity.class);
