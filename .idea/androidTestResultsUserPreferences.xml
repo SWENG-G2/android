@@ -61,6 +61,8 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi&#10; M2101K6G" value="120" />
+                  <entry key="aae3b2ae" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
