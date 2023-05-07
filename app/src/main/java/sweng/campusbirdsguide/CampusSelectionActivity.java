@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.VolleyError;
 
+import sweng.campusbirdsguide.mock.PresentationMock;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
@@ -46,24 +47,14 @@ public class CampusSelectionActivity extends AppCompatActivity implements Search
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        RequestMaker requestMaker = new RequestMaker(getApplicationContext());
+        ListItemClickAction listItemClickAction = id -> {
+            finish();
+        };
+        PresentationMock campusesListMock = new PresentationMock();
+        campusesListMock.addCampus("Test campus 1", "1");
+        campusesListMock.addCampus("Test campus 2", "2");
 
-        String campusListUrl = getString(R.string.serverURL) + getString(R.string.campusesList);
-        requestMaker.query(campusListUrl, new Result() {
-            @Override
-            public void onSuccess(String string) {
-                ListItemClickAction listItemClickAction = id -> {
-                    sharedPreferences.edit().putInt(getString(R.string.campusId), id).apply();
-                    finish();
-                };
-                slidesRecyclerViewAdapter = UIUtils.populateList(string, campusSelectionActivity, SlideFactory.BASIC_SLIDE, listItemClickAction, 0);
-            }
-
-            @Override
-            public void onError(VolleyError volleyError) {
-                System.out.println(volleyError.getMessage());
-            }
-        });
+        slidesRecyclerViewAdapter = PresentationMock.mockPopulateUI(campusSelectionActivity, listItemClickAction, 0, campusesListMock.getPresentation());
 
         // Search functionality
         SearchView searchView = findViewById(R.id.search);

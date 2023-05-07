@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Locale;
 
+import sweng.campusbirdsguide.mock.PresentationMock;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
@@ -49,28 +50,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
      * Fetches the birds for the selected campus.
      */
     private void fetchBirds() {
+        PresentationMock birdsMock = new PresentationMock();
+        birdsMock.addBird("Test 1", "Description", PresentationMock.MOCK_IMAGE, "1");
+        birdsMock.addBird("Test 2", "Description", PresentationMock.MOCK_IMAGE, "2");
+
+        ListItemClickAction listItemClickAction = id -> {
+            Intent birdIntent = new Intent(getApplicationContext(), BirdActivity.class);
+            startActivity(birdIntent);
+        };
+
+        slidesRecyclerViewAdapter = PresentationMock.mockPopulateUI(mainActivity, listItemClickAction, 5, birdsMock.getPresentation());
         RequestMaker requestMaker = new RequestMaker(getApplicationContext());
-
-        String birdsUrl = getString(R.string.serverURL) + String.format(Locale.UK, getString(R.string.birdsList), campusId);
-        // Network request
-        requestMaker.query(birdsUrl, new Result() {
-            @Override
-            public void onSuccess(String response) {
-                ListItemClickAction listItemClickAction = id -> {
-                    Intent birdIntent = new Intent(getApplicationContext(), BirdActivity.class);
-                    birdIntent.putExtra("birdId", id);
-                    startActivity(birdIntent);
-                };
-                slidesRecyclerViewAdapter = UIUtils.populateList(response, mainActivity, SlideFactory.BIRD_SLIDE, listItemClickAction, 5);
-                // Hide progress loading spinner
-                findViewById(R.id.loading).setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onError(VolleyError volleyError) {
-                System.out.println(volleyError.getMessage());
-            }
-        });
     }
 
     @Override
@@ -105,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         if (campusId != NO_CAMPUS_SELECTED) {
             // Show loading spinner
-            findViewById(R.id.loading).setVisibility(View.VISIBLE);
+            //findViewById(R.id.loading).setVisibility(View.VISIBLE);
             fetchBirds();
         }
         // Show select location hint
@@ -126,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             // Hide select location hint
             findViewById(R.id.select_location_tv).setVisibility(View.GONE);
             // Show loading spinner
-            findViewById(R.id.loading).setVisibility(View.VISIBLE);
+            //findViewById(R.id.loading).setVisibility(View.VISIBLE);
             fetchBirds();
         }
     }

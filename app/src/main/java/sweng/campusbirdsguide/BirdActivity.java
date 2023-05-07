@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 
 import java.util.Locale;
 
+import sweng.campusbirdsguide.mock.PresentationMock;
 import sweng.campusbirdsguide.network.RequestMaker;
 import sweng.campusbirdsguide.network.Result;
 import sweng.campusbirdsguide.presentation.SlidesRecyclerViewAdapter;
@@ -21,6 +22,9 @@ import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
 public class BirdActivity extends AppCompatActivity {
     private ConstraintLayout birdActivity;
+
+    private static final String AUDIO_URL = "https://download.samplelib.com/mp3/sample-6s.mp3";
+    private static final String VIDEO_URL = "https://download.samplelib.com/mp4/sample-5s.mp4";
 
     private void setUpAppBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -32,8 +36,11 @@ public class BirdActivity extends AppCompatActivity {
         }
     }
 
-    private void populateUIAndContent(String contentXML) {
-        UIUtils.populateList(contentXML, birdActivity, SlideFactory.DETAIL_SLIDE, null, 0);
+    private void populateUIAndContent() {
+        PresentationMock birdDetailMock = new PresentationMock();
+        birdDetailMock.addBirdDetails("#FFE89266", "Test 1", AUDIO_URL, PresentationMock.MOCK_IMAGE, "#FF8A8178", VIDEO_URL, "About this bird", PresentationMock.MOCK_IMAGE, "Diet this bird", PresentationMock.MOCK_IMAGE, "Location this bird");
+
+        PresentationMock.mockPopulateUI(birdActivity, null, 0, birdDetailMock.getPresentation());
         setUpAppBar();
     }
 
@@ -42,35 +49,14 @@ public class BirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bird);
 
-        int birdId = getIntent().getIntExtra("birdId", -1);
-        String birdXML = getIntent().getStringExtra("birdXML");
-
-        if (birdId == -1 && birdXML == null)
-            finish();
-
         birdActivity = findViewById(R.id.bird_activity);
 
         // Set App bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (birdXML == null) {
-            RequestMaker requestMaker = new RequestMaker(getApplicationContext());
 
-            String birdUrl = getString(R.string.serverURL) + String.format(Locale.UK, "bird/%d", birdId);
-            requestMaker.query(birdUrl, new Result() {
-                @Override
-                public void onSuccess(String xml) {
-                    populateUIAndContent(xml);
-                }
-
-                @Override
-                public void onError(VolleyError volleyError) {
-                    System.out.println(volleyError.getMessage());
-                }
-            });
-        } else
-            populateUIAndContent(birdXML);
+        populateUIAndContent();
     }
 
     @Override

@@ -110,13 +110,10 @@ public class AudioElement extends PresentationElement implements View.OnClickLis
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA).build());
 
-        // TODO: remove this as server should provide full url
-        String serverURL = container.getContext().getString(R.string.serverURL);
-
         // Prepare media player in the background
         Runnable runnable = () -> {
             try {
-                mediaPlayer.setDataSource(serverURL + url);
+                mediaPlayer.setDataSource(url);
                 mediaPlayer.prepare();
 
                 if (loop)

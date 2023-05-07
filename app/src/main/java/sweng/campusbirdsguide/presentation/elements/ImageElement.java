@@ -84,8 +84,7 @@ public class ImageElement extends PresentationElement implements ViewElement {
 
         imageView.setRotation(rotation);
 
-        String serverURL = parent.getContext().getResources().getString(R.string.serverURL);
-        Glide.with(parent).load(serverURL + url).into(imageView);
+        Glide.with(parent).load(url).into(imageView);
 
         return imageView;
     }
