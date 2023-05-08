@@ -38,10 +38,6 @@ import sweng.campusbirdsguide.xml.slide.SlideFactory;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 
-    private static final int NO_CAMPUS_SELECTED = -1;
-
-    private int campusId;
-    private SharedPreferences sharedPreferences;
     private ConstraintLayout mainActivity;
     private SlidesRecyclerViewAdapter slidesRecyclerViewAdapter;
     private MainActivityLifecycleObserver mainActivityLifecycleObserver;
@@ -90,16 +86,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        sharedPreferences = getSharedPreferences(getString(R.string.campusConfiguration), Context.MODE_PRIVATE);
-        campusId = sharedPreferences.getInt(getString(R.string.campusId), NO_CAMPUS_SELECTED);
-
-        if (campusId != NO_CAMPUS_SELECTED) {
-            // Show loading spinner
-            //findViewById(R.id.loading).setVisibility(View.VISIBLE);
-            fetchBirds();
-        }
-        // Show select location hint
-        else findViewById(R.id.select_location_tv).setVisibility(View.VISIBLE);
+        fetchBirds();
 
         // Search functionality
         SearchView searchView = findViewById(R.id.search);
@@ -110,15 +97,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onResume() {
         super.onResume();
-        int newCampusId = sharedPreferences.getInt(getString(R.string.campusId), NO_CAMPUS_SELECTED);
-        if (newCampusId != campusId) {
-            campusId = newCampusId;
-            // Hide select location hint
-            findViewById(R.id.select_location_tv).setVisibility(View.GONE);
-            // Show loading spinner
-            //findViewById(R.id.loading).setVisibility(View.VISIBLE);
-            fetchBirds();
-        }
+        fetchBirds();
     }
 
     @Override
