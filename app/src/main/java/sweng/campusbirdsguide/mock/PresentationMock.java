@@ -50,11 +50,11 @@ public class PresentationMock {
     }
 
     public void addCampus(String name, String id) {
-        Slide slide = SlideFactory.createSlide(SlideFactory.BASIC_SLIDE, SLIDE_WIDTH, 120, id);
+        Slide slide = SlideFactory.createSlide(SlideFactory.BASIC_SLIDE, SLIDE_WIDTH, 60, id);
 
-        TextElement campusName = new TextElement(FONT, FONT_SIZE_TITLE, Color.BLACK, 100, 45, MATCH_PARENT, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement campusName = new TextElement(FONT, FONT_SIZE_TITLE_SM, Color.BLACK, 100, 5, MATCH_PARENT, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         campusName.setContent(name);
-        PresentationElement line = new LineElement(5, 100, 120, 1820, 120, Color.parseColor("#FF8A8178"));
+        PresentationElement line = new LineElement(2, 100, 60, 1820, 60, Color.parseColor("#FF8A8178"));
 
         slide.addElement(campusName);
         slide.addElement(line);
@@ -63,15 +63,15 @@ public class PresentationMock {
     }
 
     public void addBird(String name, String description, String listImageUrl, String id) {
-        Slide slide = SlideFactory.createSlide(SlideFactory.BIRD_SLIDE, SLIDE_WIDTH, 200, id);
+        Slide slide = SlideFactory.createSlide(SlideFactory.BIRD_SLIDE, SLIDE_WIDTH, 100, id);
 
-        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_SM, Color.BLACK, 560, 30, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_SM, Color.BLACK, 560, 10, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         birdName.setContent(name);
 
-        TextElement birdDescription = new TextElement(FONT, FONT_SIZE_BODY, Color.BLACK, 560, 68, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement birdDescription = new TextElement(FONT, FONT_SIZE_BODY, Color.BLACK, 560, 40, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         birdDescription.setContent(description);
 
-        PresentationElement image = new ImageElement(listImageUrl, 480, 100, 40, 40, 0, 0, ALWAYS_ON_SCREEN);
+        PresentationElement image = new ImageElement(listImageUrl, 480, 100, 40, 0, 0, 0, ALWAYS_ON_SCREEN);
 
         slide.addElement(birdName);
         slide.addElement(birdDescription);
@@ -103,7 +103,7 @@ public class PresentationMock {
         // Hero section
         Slide hero = SlideFactory.createSlide(SlideFactory.BASIC_SLIDE, SLIDE_WIDTH, 485, "heroSlide");
         PresentationElement rectangle = new RectangleElement(SLIDE_WIDTH, 100, Color.parseColor(rectangleColor), 0, 0, 0, 0);
-        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_MD, Color.BLACK, 20, 25, MATCH_PARENT, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_MD, Color.BLACK, 115, 25, MATCH_PARENT, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         birdName.setContent(name);
         PresentationElement audio = new AudioElement(audioUrl, false, -3, 0);
         PresentationElement image = new ImageElement(imageUrl, 1700, 360, CENTER_IN_PARENT, 115, 0, 0, ALWAYS_ON_SCREEN);

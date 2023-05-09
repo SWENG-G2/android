@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
      */
     private void fetchBirds() {
         PresentationMock birdsMock = new PresentationMock();
-        birdsMock.addBird("Test 1", "Description", PresentationMock.MOCK_IMAGE, "1");
-        birdsMock.addBird("Test 2", "Description", PresentationMock.MOCK_IMAGE, "2");
+        birdsMock.addBird("Chicken", "Chickens are domesticated birds that are kept...", PresentationMock.MOCK_IMAGE, "1");
+        birdsMock.addBird("Another chicken", "Chickens are domesticated birds that are kept...", PresentationMock.MOCK_IMAGE, "2");
 
         ListItemClickAction listItemClickAction = id -> {
             Intent birdIntent = new Intent(getApplicationContext(), BirdActivity.class);
