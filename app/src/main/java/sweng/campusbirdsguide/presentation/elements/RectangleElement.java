@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 
 import sweng.campusbirdsguide.xml.slide.Slide;
 
+/**
+ * <code>RectangleElement</code> implements the rectangle presentation element with behaviour
+ * respectful of SWENG standard v3.
+ */
 public class RectangleElement extends PresentationElement implements ShapeElement {
     private final int width;
     private final int height;
@@ -15,6 +19,16 @@ public class RectangleElement extends PresentationElement implements ShapeElemen
     private final int borderWidth;
     private final int borderColour;
 
+    /**
+     * <code>RectangleElement</code> constructor.
+     * @param width Rectangle width in presentation units.
+     * @param height Rectangle height in presentation units.
+     * @param colour Fill colour.
+     * @param borderWidth Border width in DP.
+     * @param borderColour Border Colour
+     * @param x X coordinate on slide.
+     * @param y Y coordinate on slide.
+     */
     public RectangleElement(int width, int height, int colour, int borderWidth, int borderColour, int x, int y) {
         super(x, y);
         this.width = width;
@@ -26,6 +40,7 @@ public class RectangleElement extends PresentationElement implements ShapeElemen
 
     @Override
     public void draw(Canvas canvas, Slide slide) {
+        // Map coordinates
         int left = Math.round((x * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int right = Math.round(left + (width * slide.getCalculatedWidth()) / (float) slide.getWidth());
         int top = dpToPx(y);
@@ -37,12 +52,14 @@ public class RectangleElement extends PresentationElement implements ShapeElemen
         paint.setStrokeWidth(border);
         paint.setStyle(Paint.Style.STROKE);
 
+        // Border
         Rect rectangle = new Rect(left, top, right, bottom);
         canvas.drawRect(rectangle, paint);
 
         paint.setColor(colour);
         paint.setStyle(Paint.Style.FILL);
 
+        // Rectangle
         canvas.drawRect(rectangle, paint);
     }
 

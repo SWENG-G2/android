@@ -8,12 +8,22 @@ import java.util.ArrayList;
 
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
+/**
+ * <code>AbstractSlide</code> provides the basic slide functionality.
+ */
 public abstract class AbstractSlide implements Slide {
     protected final DisplayMetrics displayMetrics;
     private final String title;
     private final ArrayList<PresentationElement> elements;
     protected int width, height, calculatedWidth, calculatedHeight, type;
 
+    /**
+     * <code>AbstractSlide</code> constructor.
+     *
+     * @param width  The slide's width.
+     * @param height The slide's height.
+     * @param title  The slide's title.
+     */
     public AbstractSlide(int width, int height, String title) {
         displayMetrics = Resources.getSystem().getDisplayMetrics();
 

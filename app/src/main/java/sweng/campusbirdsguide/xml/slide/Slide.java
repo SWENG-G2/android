@@ -7,6 +7,9 @@ import java.util.List;
 
 import sweng.campusbirdsguide.presentation.elements.PresentationElement;
 
+/**
+ * <code>Slide</code> is an interface defining the functions each slide must provide.
+ */
 public interface Slide {
     int HORIZONTAL_MARGIN = 10; // 5 DP each side
     int HORIZONTAL_PADDING = 20; // 10 dp each side

@@ -1,5 +1,8 @@
 package sweng.campusbirdsguide.xml.slide;
 
+/**
+ * <code>SlideFactory</code> is a factory class for Slide.
+ */
 public class SlideFactory {
     // Slide variants
     public static final String BIRD_SLIDE = "bird";
@@ -8,6 +11,14 @@ public class SlideFactory {
     // Slide title, to differentiate hero slide from detail slides
     private static final String HERO_SLIDE = "heroSlide";
 
+    /**
+     * Creates a slide.
+     * @param type The slide type.
+     * @param width The slide's width.
+     * @param height The slide's height.
+     * @param title The slide's title.
+     * @return The new slide.
+     */
     public static Slide createSlide(String type, int width, int height, String title) {
         switch (type) {
             case BIRD_SLIDE:

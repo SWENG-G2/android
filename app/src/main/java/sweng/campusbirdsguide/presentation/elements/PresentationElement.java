@@ -1,16 +1,14 @@
 package sweng.campusbirdsguide.presentation.elements;
 
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import lombok.Getter;
-import sweng.campusbirdsguide.xml.slide.Slide;
-
+/**
+ * <code>PresentationElement</code> is the abstract class which provides
+ * all the methods and constants every presentation element needs and must provide.
+ */
 public abstract class PresentationElement {
     protected static final DisplayMetrics displayMetrics
             = Resources.getSystem().getDisplayMetrics();
@@ -34,16 +32,38 @@ public abstract class PresentationElement {
         this.x = x;
         this.y = y;
     }
-    
+
+    /**
+     * Method an element provides to inform about the its type
+     *
+     * @return {@link #AUDIO_ELEMENT} or {@link #IMAGE_ELEMENT} or {@link #TEXT_ELEMENT} or {@link #VIDEO_ELEMENT}
+     */
     abstract public String getViewType();
 
+    /**
+     * Method used by the adapter to filter search queries.
+     *
+     * @return The text content of an element, or null if no searchable content should be provided.
+     */
     abstract public String getSearchableContent();
 
+    /**
+     * Utility used to convert DPs into pixels.
+     *
+     * @param input The value to convert in DPs.
+     * @return The converted value in pixels.
+     */
     protected int dpToPx(int input) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, input,
                 displayMetrics));
     }
 
+    /**
+     * Checks if layout rules are to be applied based on the requested screen position.
+     *
+     * @param layoutParams {@link RelativeLayout.LayoutParams} of the view being manipulated by the element.
+     * @return Boolean, whether no rules have been applied (true) or a rule has been applied (false).
+     */
     protected boolean noHorizontalLayoutRulesToApply(RelativeLayout.LayoutParams layoutParams) {
         switch (x) {
             case ALIGN_END_OF_PARENT:
