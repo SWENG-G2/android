@@ -33,6 +33,7 @@
         </activity>
         <activity
             android:name=".AboutUsActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -40,6 +41,7 @@
         </activity>
         <activity
             android:name=".AboutUsCreatorsActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -47,6 +49,7 @@
         </activity>
         <activity
             android:name=".AboutUsUsageActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
