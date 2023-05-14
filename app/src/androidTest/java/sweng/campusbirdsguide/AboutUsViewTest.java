@@ -44,14 +44,14 @@ public class AboutUsViewTest {
     @Test
     public void appNameDisplayedTopOfToolbar()
     {
-        onView(withText("Fauna Finder")).check(matches(isDisplayed()));
-        onView(withText("Fauna Finder")).check(isTopAlignedWith(withId(R.id.toolbar)));
+        onView(withText(R.string.fauna_finder)).check(matches(isDisplayed()));
+        onView(withText(R.string.fauna_finder)).check(isTopAlignedWith(withId(R.id.toolbar)));
     }
     @Test
     public void appVersionDisplayedBelowAppName()
     {
-        onView(withText("Version 1.0.0")).check(matches(isDisplayed()));
-        onView(withText("Version 1.0.0")).check(isCompletelyBelow(withText("Fauna Finder")));
+        onView(withText(R.string.version)).check(matches(isDisplayed()));
+        onView(withText(R.string.version)).check(isCompletelyBelow(withText(R.string.fauna_finder)));
     }
     @Test
     public void appLogoDisplayedBelowToolbar()
@@ -62,29 +62,29 @@ public class AboutUsViewTest {
     @Test
     public void creatorsButtonDisplayedBetweenLogoAndUsageButton()
     {
-        onView(withText("About the creators")).check(matches(isDisplayed()));
-        onView(withText("About the creators")).check(isCompletelyBelow(withId(R.id.appLogo)));
-        onView(withText("About the creators")).check(isCompletelyAbove(withText("How to use the app")));
+        onView(withText(R.string.creators_title)).check(matches(isDisplayed()));
+        onView(withText(R.string.creators_title)).check(isCompletelyBelow(withId(R.id.appLogo)));
+        onView(withText(R.string.creators_title)).check(isCompletelyAbove(withText(R.string.app_usage_title)));
     }
     @Test
     public void usageButtonDisplayedBetweenCreatorsButtonAndLicensingButton()
     {
-        onView(withText("How to use the app")).check(matches(isDisplayed()));
-        onView(withText("How to use the app")).check(isCompletelyBelow(withText("About the creators")));
-        onView(withText("How to use the app")).check(isCompletelyAbove(withText("Licensing")));
+        onView(withText(R.string.app_usage_title)).check(matches(isDisplayed()));
+        onView(withText(R.string.app_usage_title)).check(isCompletelyBelow(withText(R.string.creators_title)));
+        onView(withText(R.string.app_usage_title)).check(isCompletelyAbove(withText(R.string.licensing_title)));
     }
     @Test
     public void licensingButtonDisplayedBelowUsageButton()
     {
-        onView(withText("Licensing")).check(matches(isDisplayed()));
-        onView(withText("Licensing")).check(isCompletelyBelow(withText("How to use the app")));
+        onView(withText(R.string.licensing_title)).check(matches(isDisplayed()));
+        onView(withText(R.string.licensing_title)).check(isCompletelyBelow(withText(R.string.app_usage_title)));
     }
 
     @Test
     public void copyrightDisplayedAtBottomOfPage()
     {
-        onView(withText("© 2023 Penelope LTD")).check(matches(isDisplayed()));
-        onView(withText("© 2023 Penelope LTD")).check(isCompletelyBelow(withText("Licensing")));
+        onView(withText(R.string.penelope_copyright)).check(matches(isDisplayed()));
+        onView(withText(R.string.penelope_copyright)).check(isCompletelyBelow(withText(R.string.licensing_title)));
     }
 
     @Test

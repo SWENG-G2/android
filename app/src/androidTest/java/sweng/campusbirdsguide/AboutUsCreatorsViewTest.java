@@ -45,7 +45,7 @@ public class AboutUsCreatorsViewTest {
     @Test
     public void screenTitleDisplayedInToolbar()
     {
-        onView(withText("About the creators")).check(matches(isDisplayed()));
+        onView(withText(R.string.creators_title)).check(matches(isDisplayed()));
     }
     @Test
     public void penelopeLogoDisplayedBelowToolbar()

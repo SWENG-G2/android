@@ -44,7 +44,7 @@ public class AboutUsUsageViewTest {
     }
     public void screenNameDisplayedInToolbar()
     {
-        onView(withText("How to use the app")).check(matches(isDisplayed()));
+        onView(withText((R.string.app_usage_title)).check(matches(isDisplayed()));
     }
     @Test
     public void scrollViewDisplayedBelowToolbar()
@@ -55,7 +55,7 @@ public class AboutUsUsageViewTest {
     @Test
     public void copyrightDisplayedAtBottomOfPage()
     {
-        onView(withText("© 2023 Penelope LTD")).check(matches(isDisplayed()));
-        onView(withText("© 2023 Penelope LTD")).check(isCompletelyBelow(withId(R.id.horizontalScrollView)));
+        onView(withText(R.string.penelope_copyright)).check(matches(isDisplayed()));
+        onView(withText(R.string.penelope_copyright)).check(isCompletelyBelow(withId(R.id.horizontalScrollView)));
     }
 }
