@@ -39,7 +39,7 @@ public class PresentationMock {
     private static final int CENTER_IN_PARENT = -2;
     private final List<Slide> presentation;
 
-    public static final String MOCK_IMAGE = "https://images.unsplash.com/photo-1590989817191-6b09de9d95b4";
+    public static final String MOCK_IMAGE = "https://media.istockphoto.com/id/93077566/photo/hen-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=SR_60pEl5azVFBcLow-vhxuuWmB9gtZB-eKMpVImDu0=";
 
     public PresentationMock() {
         presentation = new ArrayList<>();
@@ -63,15 +63,15 @@ public class PresentationMock {
     }
 
     public void addBird(String name, String description, String listImageUrl, String id) {
-        Slide slide = SlideFactory.createSlide(SlideFactory.BIRD_SLIDE, SLIDE_WIDTH, 100, id);
+        Slide slide = SlideFactory.createSlide(SlideFactory.BIRD_SLIDE, SLIDE_WIDTH, 110, id);
 
-        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_SM, Color.BLACK, 560, 10, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement birdName = new TextElement(FONT, FONT_SIZE_TITLE_SM, Color.BLACK, 560, 15, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         birdName.setContent(name);
 
-        TextElement birdDescription = new TextElement(FONT, FONT_SIZE_BODY, Color.BLACK, 560, 40, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
+        TextElement birdDescription = new TextElement(FONT, FONT_SIZE_BODY, Color.BLACK, 560, 45, 1300, WRAP_CONTENT, ALWAYS_ON_SCREEN);
         birdDescription.setContent(description);
 
-        PresentationElement image = new ImageElement(listImageUrl, 480, 100, 40, 0, 0, 0, ALWAYS_ON_SCREEN);
+        PresentationElement image = new ImageElement(listImageUrl, 480, 100, 40, 5, 0, 0, ALWAYS_ON_SCREEN);
 
         slide.addElement(birdName);
         slide.addElement(birdDescription);
