@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aboutus_usage_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorSecondary"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/creatorsTitle"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/how_to_use_the_app"
+            android:textColor="?attr/colorOnSecondary" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/pageFooter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_main"
+                    android:layout_width="399dp"
+                    android:layout_height="549dp"
+
+                    android:contentDescription="@string/main_empty_screenshot_content_description"
+                    android:src="@drawable/main_empty" />
+
+                <TextView
+                    android:id="@+id/screenshot_text_main"
+                    android:layout_width="361dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/main_empty_usage" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_campus"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/campus_selection_page_screenshot_content_description"
+                    android:src="@drawable/campus" />
+
+                <TextView
+                    android:id="@+id/screenshot_text_campus"
+                    android:layout_width="367dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/campus_select_usage" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_bird"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/bird_selection_page_screenshot_content_description"
+                    android:src="@drawable/main" />
+
+                <TextView
+                    android:id="@+id/screenshot_text_bird"
+                    android:layout_width="337dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/bird_selection_usage" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_info1"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/bird_info_page1_content_description"
+                    android:src="@drawable/detail" />
+
+                <TextView
+                    android:id="@+id/screenshot_text_info1"
+                    android:layout_width="337dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/info_pages1" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_info2"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/about_me_info_screenshot_content_description"
+                    android:src="@drawable/detail1" />
+
+                <TextView
+                    android:id="@+id/screenshot_text_info2"
+                    android:layout_width="337dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/about_me_info" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image_info3"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/diet_info_screenshot_content_description"
+                    android:src="@drawable/detail2" />
+
+                <TextView
+                    android:id="@+id/screenshot_info3"
+                    android:layout_width="337dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/Diet_info" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/screenshot_image2"
+                    android:layout_width="384dp"
+                    android:layout_height="549dp"
+                    android:contentDescription="@string/location_info_screenshot_content_description"
+                    android:src="@drawable/detail3" />
+
+                <TextView
+                    android:id="@+id/screenshot_text2"
+                    android:layout_width="337dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/location_info" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/pageFooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/_2023_penelope_ltd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

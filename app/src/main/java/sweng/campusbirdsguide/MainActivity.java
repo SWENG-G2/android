@@ -1,21 +1,14 @@
 package sweng.campusbirdsguide;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -145,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             Intent chooseLocationIntent = new Intent(this, CampusSelectionActivity.class);
             startActivity(chooseLocationIntent);
         } else { // Other possibility can only be the about button
-            Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+            Intent chooseLocationIntent = new Intent(this, AboutUsActivity.class);
+            startActivity(chooseLocationIntent);
         }
         return super.onOptionsItemSelected(item);
     }
